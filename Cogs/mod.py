@@ -12,13 +12,16 @@ class Mod(commands.Cog):
     #When a message is sent
     @commands.Cog.listener()
     async def on_message(self, message):
-        await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
-        user = message.author
-        bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
-        for word in bad_words:
-            if word in message.content.lower():
-                await self.warning(user, user, f"Used a bad word ({word})")
-                await self.log(user, f"{user} used a bad word ({word})")
+        if message.author.bot:
+            return
+        else:
+            await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
+            user = message.author
+            bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
+            for word in bad_words:
+                if word in message.content.lower():
+                    await self.warning(user, user, f"Used a bad word ({word})")
+                    await self.log(user, f"{user} used a bad word ({word})")
 
     #Commands
     #Bulk message delete

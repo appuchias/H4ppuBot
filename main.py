@@ -90,5 +90,5 @@ print(f'{extensions} loaded!')
 async def change_status():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
 
-client.run("NjQyMDc2MjM3MDg2MzI2ODM1.XcRtaw.-eXt-S3sIk-F8-aXXBrPTE-HMfI")
+client.run("NjQyMDc2MjM3MDg2MzI2ODM1.XcR35g.QFt0MzqUW9dP7mBMblvYFu1dOns")
 #os.environ.get("Token_Bot")

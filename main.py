@@ -32,7 +32,7 @@ async def emload(ctx, extension):
 
 @client.command()
 async def help(ctx):
-    embed=discord.Embed(title='Help Command', description="H4lppu", color=0x7289DA)
+    embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
     embed.set_footer(text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Todos los comandos se añaden a log', icon_url=ctx.author.avatar_url)
 

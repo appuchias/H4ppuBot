@@ -15,7 +15,6 @@ class Mod(commands.Cog):
         if message.author.bot:
             return
         else:
-            await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
             user = message.author
             bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
             for word in bad_words:

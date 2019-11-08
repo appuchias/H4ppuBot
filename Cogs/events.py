@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import asyncio
 #import datetime as dt
 #import pytz
 
@@ -21,9 +22,8 @@ class Events(commands.Cog):
         else:
             await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
             if message.channel.id == 637356732137603092:
+                await asyncio.sleep(2)
                 await message.remove()
-                #time = dt.datetime.now(madrid_tz)
-                #embed = discord.Embed(title="Mensaje de soporte", description=f"Enviada por {message.author} el {time.strftime("%\d / %\m / %\Y")} a las {time.strftime("%\X")}")
 
 
     #When a reaction is added to a message
@@ -43,7 +43,7 @@ class Events(commands.Cog):
         user = await guild.fetch_member(payload.user_id)
 
         if payload.emoji.name == "✅":
-            if channel.id == 637356730652819484 or channel.id == 637356731307130900:
+            if channel.id == 641041859619323918 or channel.id == 641041860294606915:
                 if payload.user_id in users:
                     users[payload.user_id] += 1
                 else:
@@ -60,7 +60,7 @@ class Events(commands.Cog):
     async def on_raw_reaction_remove(self, payload):
         channel = self.client.get_channel(payload.channel_id)
         if payload.emoji.name == "✅":
-            if channel.id == 637356730652819484 or channel.id == 637356731307130900:
+            if channel.id == 641041859619323918 or channel.id == 641041860294606915:
                 if payload.user_id in users:
                     users[payload.user_id] -=1
 

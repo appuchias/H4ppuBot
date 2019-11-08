@@ -7,12 +7,11 @@ from keep_alive import keep_alive
 import json
 
 prefix = "*"
+copyright = f"**H4ppu Bot**\n*By Mr. Appu™*"
+version = "0.2.0 stable"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
-
-copyright = f"**{client.user.name} Official Bot**\n*By {client.user.owner}*"
-version = "0.2.0 stable"
 
 @client.event
 async def on_ready():
@@ -83,12 +82,12 @@ print(f'{extensions} loaded!')
 
 
 #Tasks
-#keep_alive()
+keep_alive()
 
 #Status
 @tasks.loop(seconds=2.5)
 async def change_status():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
 
-client.run("NjQyMDc2MjM3MDg2MzI2ODM1.XcR35g.QFt0MzqUW9dP7mBMblvYFu1dOns")
+client.run(os.environ.get("Token_Bot"))
 #os.environ.get("Token_Bot")

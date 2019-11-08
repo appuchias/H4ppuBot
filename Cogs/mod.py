@@ -26,7 +26,7 @@ class Mod(commands.Cog):
     #Commands
     #Bulk message delete
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def clear(self, ctx, number):
         n = number
         if int(n) > 20:
@@ -40,7 +40,7 @@ class Mod(commands.Cog):
 
     #Kick someone
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def kick(self, ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f'{member} kickeado!')
@@ -49,7 +49,7 @@ class Mod(commands.Cog):
 
     #Ban someone
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'{member} baneado!')
@@ -58,7 +58,7 @@ class Mod(commands.Cog):
 
     #Unban someone
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def unban(self, ctx, *, member):
         banned_users = ctx.guild.bans()
         name, discr = member.split('#')
@@ -73,7 +73,7 @@ class Mod(commands.Cog):
         await ctx.message.delete(delay=2)
 
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def warn(self, ctx, user:discord.Member, *, reason = "None"):
         await self.warning(ctx, user, reason)
         await self.log(ctx, f"{ctx.author} warned {user.name}!")
@@ -82,14 +82,14 @@ class Mod(commands.Cog):
 
 
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def mute(self, ctx, user: discord.Member):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
         await self.log(ctx, f"{user.name} got muted!")
 
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def tmute(self, ctx, user: discord.Member, n:int):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
@@ -98,7 +98,7 @@ class Mod(commands.Cog):
         await user.remove_roles(muted_role)
 
     @commands.command()
-    @commands.has_role("H4lppu")
+    @commands.has_role("H4ppu")
     async def report(self, ctx, who : discord.Member, *, reason):
         with open("reports.json", "r") as f:
         	reports = json.load(f)

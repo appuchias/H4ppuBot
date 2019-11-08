@@ -63,7 +63,7 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 #Blinking current statuses
-activities = cycle([f"*help | Aún en desarrollo... | V{version}", f"*help | {client.user.name}"])
+activities = cycle([f"*help | Aún en desarrollo... | V{version}", f"*help | H4ppu Bot"])
 
 @client.command(hidden=True)
 @commands.check(commands.is_owner())

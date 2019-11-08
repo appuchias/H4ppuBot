@@ -8,7 +8,7 @@ import json
 
 prefix = "*"
 copyright = f"**H4ppu Bot**\n*By Mr. Appu™*"
-version = "0.2.0 stable"
+version = "0.1.0 stable"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -85,7 +85,7 @@ print(f'{extensions} loaded!')
 keep_alive()
 
 #Status
-@tasks.loop(seconds=2.5)
+@tasks.loop(seconds=3)
 async def change_status():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
 

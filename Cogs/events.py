@@ -68,7 +68,7 @@ class Events(commands.Cog):
     async def on_member_join(self, member):
         new = discord.utils.get(member.guild.roles, name="Readme")
         await member.add_roles(new)
-        await member.send("Bienvenido al server **{member.guild}**!")
+        await member.send(f"Bienvenido al server **{member.guild}**!")
         channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"{member.mention} se acaba de unir! :tada:")
         await self.log(member, f"{member.mention} se acaba de unir! :tada:")

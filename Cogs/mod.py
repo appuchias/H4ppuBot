@@ -59,7 +59,7 @@ class Mod(commands.Cog):
     @commands.command()
     @commands.has_role("H4ppu")
     async def unban(self, ctx, *, member):
-        banned_users = ctx.guild.bans()
+        banned_users = await ctx.guild.bans()
         name, discr = member.split('#')
 
         for ban_entry in banned_users:
@@ -67,7 +67,6 @@ class Mod(commands.Cog):
             if(user.name, user.discriminator) == (name, discr):
                 await ctx.guild.unban(user)
                 await self.log(ctx, f'{user} was unbanned by {ctx.message.author}')
-                return
         await ctx.send(f'{member} desbaneado!')
         await ctx.message.delete(delay=2)
 

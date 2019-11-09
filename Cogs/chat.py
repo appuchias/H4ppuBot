@@ -57,7 +57,7 @@ class Chat(commands.Cog):
                 output += ' '
 
             embed = discord.Embed(
-            title = f"**{client.user.name}**",
+            title = f"**{self.client.user.name}**",
             description = 'Repite "{}" {} veces'.format(output, veces),
             colour = 0xf29fc5
             )
@@ -99,7 +99,19 @@ class Chat(commands.Cog):
                 elif n == 2:
                     await ctx.send('Ha salido CRUZ')
                 elif n == 0:
-                    await ctx.send('***CANTO!!!***:tada::tada:')
+                    n = random.randint(0,2)
+                    if n == 1:
+                        await ctx.send('Ha salido CARA!')
+                    elif n == 2:
+                        await ctx.send('Ha salido CRUZ')
+                    elif n == 0:
+                        n = random.randint(0,2)
+                        if n == 1:
+                            await ctx.send('Ha salido CARA!')
+                        elif n == 2:
+                            await ctx.send('Ha salido CRUZ')
+                        elif n == 0:
+                            await ctx.send("**CANTO!!**:tada::tada:")
         await self.log(ctx, f"Moneda: {numero}")
 
     async def log(self, ctx, msg):

@@ -81,28 +81,25 @@ class Chat(commands.Cog):
 
     @commands.command()
     async def moneda(self, ctx):
-        if self.check_server(ctx) == 2 or self.check_server(ctx) == 3:
-            return
-        else:
-            numero = random.randint(0,2)
-            if numero == 1:
+        numero = random.randint(0,2)
+        if numero == 1:
+            await ctx.send('Ha salido CARA!')
+        elif numero == 2:
+            await ctx.send('Ha salido CRUZ')
+        elif numero == 0:
+            number = random.randint(0,2)
+            if number == 1:
                 await ctx.send('Ha salido CARA!')
-            elif numero == 2:
+            elif number == 2:
                 await ctx.send('Ha salido CRUZ')
-            elif numero == 0:
-                number = random.randint(0,2)
-                if number == 1:
+            elif number == 0:
+                n = random.randint(0,2)
+                if n == 1:
                     await ctx.send('Ha salido CARA!')
-                elif number == 2:
+                elif n == 2:
                     await ctx.send('Ha salido CRUZ')
-                elif number == 0:
-                    n = random.randint(0,2)
-                    if n == 1:
-                        await ctx.send('Ha salido CARA!')
-                    elif n == 2:
-                        await ctx.send('Ha salido CRUZ')
-                    elif n == 0:
-                        await ctx.send('***CANTO!!!***:tada::tada:')
+                elif n == 0:
+                    await ctx.send('***CANTO!!!***:tada::tada:')
         await self.log(ctx, f"Moneda: {numero}")
 
     async def log(self, ctx, msg):

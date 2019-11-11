@@ -21,9 +21,7 @@ class Events(commands.Cog):
             return
         else:
             await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
-            if message.channel.id == 637356732137603092:
-                await asyncio.sleep(2)
-                await message.remove()
+
 
 
     #When a reaction is added to a message

@@ -97,7 +97,8 @@ class Mod(commands.Cog):
 
     @commands.command()
     @commands.has_role("H4ppu")
-    async def report(self, ctx, who : discord.Member, *, reason):
+    async def report(self, ctx, who : discord.Member, *, reason = "None"):
+        author = ctx.author
         with open("reports.json", "r") as f:
         	reports = json.load(f)
         channel = discord.utils.get(ctx.guild.channels, name="reports")
@@ -106,28 +107,22 @@ class Mod(commands.Cog):
             reports[who.id] += 1
         else:
             reports[who.id] = 1
-        await appu.send(f"{ctx.auhor.mention} reported {who.mention} for {reason} and now has {reports.get(who.id)} reports!")
+        await appu.send(f"{author.mention} reported {who.mention} for {reason} and now has {reports.get(who.id)} reports!")
         if reports.get(who.id) >= 3:
         	await appu.send(f"{appu.mention}, {who.name} has {reports.get(who.id)} reports!!!")
         await channel.send(f"""||-------------------------------------------------------------------------------------------||
 Case **{len(reports)}**:\n - Member: **{who}**\n - Actual reports: **{reports.get(who.id)}**\n - Reason: *{reason}*""")
         with open ("reports.json", "w") as f:
-            json.dump(reports, f, indent=4)
+            json.dumps(reports, f, indent=4)
 
-    #Función para poder añadir eventos al log
+    #Log
     async def log(self, ctx, msg):
-        channel = discord.utils.get(ctx.guild.channels, name='log')
+        channel = ctx.guild.fetch_channel(641041858012905480)
         if channel in ctx.guild.channels:
             pass
         else:
-            await ctx.guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
-            channel = discord.utils.get(ctx.guild.channels, name='log')
-            overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
+            await ctx.send("Error 404. Channel not found")
 
-            top_two = ctx.guild.roles[-2:]
-            for role in top_two:
-                overwrites[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
-            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)
         await channel.send(msg)
         print(f"Log: {msg}")
 
@@ -209,3 +204,12 @@ Case **{len(reports)}**:\n - Member: **{who}**\n - Actual reports: **{reports.ge
 
 def setup(client):
     client.add_cog(Mod(client))
+
+# await ctx.guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
+# channel = discord.utils.get(ctx.guild.channels, name='log')
+# overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
+#
+# top_two = ctx.guild.roles[-2:]
+# for role in top_two:
+#     overwrites[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
+# await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)

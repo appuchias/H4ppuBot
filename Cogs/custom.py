@@ -13,7 +13,7 @@ class Custom(commands.Cog):
         else:
             if message.channel.id == 637356732137603092:
                 ayuda = discord.utils.get(message.guild.channels, name="help")
-                await help.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
+                await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
                 await asyncio.sleep(2)
                 await message.remove()
 

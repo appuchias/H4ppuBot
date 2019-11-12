@@ -35,20 +35,14 @@ class Extensions(commands.Cog):
         await ctx.send(f'Extensión {extension} recragada!')
         await self.log(ctx, f'Extension {extension} reloaded!')
 
-    #Logging function
+    #Log
     async def log(self, ctx, msg):
-        channel = discord.utils.get(ctx.guild.channels, name='log')
+        channel = ctx.guild.fetch_channel(641041858012905480)
         if channel in ctx.guild.channels:
             pass
         else:
-            await ctx.guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
-            channel = discord.utils.get(ctx.guild.channels, name='log')
-            overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
+            await ctx.send("Error 404. Channel not found")
 
-            top_two = ctx.guild.roles[-2:]
-            for role in top_two:
-                overwrites[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
-            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)
         await channel.send(msg)
         print(f"Log: {msg}")
 

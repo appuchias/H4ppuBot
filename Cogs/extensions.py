@@ -30,7 +30,7 @@ class Extensions(commands.Cog):
         self.client.unload_extension(f'Cogs.{extension}')
         await ctx.send(f'Extension {extension} descargada!')
         await ctx.send('Recargando en breve...')
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
         self.client.load_extension(f'Cogs.{extension}')
         await ctx.send(f'Extensión {extension} recragada!')
         await self.log(ctx, f'Extension {extension} reloaded!')

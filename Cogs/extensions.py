@@ -37,7 +37,7 @@ class Extensions(commands.Cog):
 
     #Log
     async def log(self, ctx, msg):
-        channel = ctx.guild.fetch_channel(641041858012905480)
+        channel = self.client.fetch_channel(641041858012905480)
         if channel in ctx.guild.channels:
             pass
         else:

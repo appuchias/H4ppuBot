@@ -12,7 +12,7 @@ class Custom(commands.Cog):
             return
         else:
             if message.channel.id == 637356732137603092:
-                ayuda = discord.utils.get(message.guild.channels, name="help")
+                ayuda = self.client.fetch_channel(637356732137603092)
                 await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
                 await message.remove(delay=2)
 
@@ -27,6 +27,21 @@ class Custom(commands.Cog):
         else:
             await ctx.author.send("Envía el mensaje en el canal correcto! :confused:")
         await ctx.message.remove(delay=2)
+        await self.log(ctx, f"Private channel {name} created by {ctx.author}")
+
+    #Log
+    async def log(self, ctx, msg):
+        channel = self.client.fetch_channel(641041858012905480)
+        if channel in ctx.guild.channels:
+            pass
+        else:
+            await ctx.send("Error 404. Channel not found")
+
+        await channel.send(msg)
+        print(f"Log: {msg}")
+
+        with open("modlog.txt", "a") as f:
+            f.write(f"Log: {msg}\n")
 
 def setup(client):
     client.add_cog(Custom(client))

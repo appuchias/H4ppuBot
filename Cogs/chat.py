@@ -22,28 +22,22 @@ class Chat(commands.Cog):
 
     @commands.command()
     async def di(self, ctx, *, args):
-        if self.check_server(ctx) == 2 or self.check_server(ctx) == 3:
-            return
-        else:
-            output = ' '
-            for word in args.split(" "):
-                output += word
-                output += ' '
-            await ctx.send(output)
-            await self.log(ctx, output)
+        output = ' '
+        for word in args.split(" "):
+            output += word
+            output += ' '
+        await ctx.send(output)
+        await self.log(ctx, output)
 
     @commands.command()
     async def reverse(self, ctx, *, args):
-        if self.check_server(ctx) == 2 or self.check_server(ctx) == 3:
-            return
-        else:
-            output = ' '
-            for word in args.split(" "):
-                output += word
-                output += ' '
-            output = output[::-1]
-            await ctx.send(output)
-            await self.log(ctx, f"Reverse: {output}")
+        output = ' '
+        for word in args.split(" "):
+            output += word
+            output += ' '
+        output = output[::-1]
+        await ctx.send(output)
+        await self.log(ctx, f"Reverse: {output}")
 
         @commands.command()
         async def hello(self, ctx):

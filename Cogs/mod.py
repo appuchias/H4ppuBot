@@ -99,21 +99,27 @@ class Mod(commands.Cog):
     @commands.has_role("H4ppu")
     async def report(self, ctx, who : discord.Member, *, reason = "None"):
         author = ctx.author
-        with open("reports.json", "r") as f:
-        	reports = json.load(f)
         channel = discord.utils.get(ctx.guild.channels, name="reports")
         appu = discord.utils.get(ctx.guild.members, id=455321214525767680)
-        if who.id in reports:
-            reports[who.id] += 1
-        else:
-            reports[who.id] = 1
-        await appu.send(f"{author.mention} reported {who.mention} for {reason} and now has {reports.get(who.id)} reports!")
-        if reports.get(who.id) >= 3:
-        	await appu.send(f"{appu.mention}, {who.name} has {reports.get(who.id)} reports!!!")
-        await channel.send(f"""||-------------------------------------------------------------------------------------------||
-Case **{len(reports)}**:\n - Member: **{who}**\n - Actual reports: **{reports.get(who.id)}**\n - Reason: *{reason}*""")
-        with open ("reports.json", "w") as f:
-            json.dumps(reports, f, indent=4)
+
+        with open("reports.json") as r:
+            reports = json.loads(r.read())
+
+        if not str(who.id) in reports:
+            reports[str(who.id)] = 0
+        reports[str(who.id)] += 1
+
+        case = 0
+        for n in reports:
+            case += reports[n]
+        await appu.send(f"{author.mention} reported {who.mention} for **[{reason}]** and now has **[{reports[str(who.id)]}]** reports!")
+        await channel.send(f"||-------------------------------------------------------------------------------------------||\nCase **{case}**:\n - Member: **{who}**\n - Actual reports: **{reports.get(str(who.id))}**\n - Reason: *{reason}*")
+
+        if reports.get(str(who.id)) >= 3:
+            await appu.send(f"[{who}] has [{reports.get(str(who.id))}] reports! Be aware!")
+
+        with open("reports.json", "w") as w:
+            w.write(json.dumps(reports, indent=4))
 
     #Log
     async def log(self, ctx, msg):
@@ -204,12 +210,3 @@ Case **{len(reports)}**:\n - Member: **{who}**\n - Actual reports: **{reports.ge
 
 def setup(client):
     client.add_cog(Mod(client))
-
-# await ctx.guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
-# channel = discord.utils.get(ctx.guild.channels, name='log')
-# overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
-#
-# top_two = ctx.guild.roles[-2:]
-# for role in top_two:
-#     overwrites[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
-# await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)

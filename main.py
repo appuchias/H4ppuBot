@@ -1,13 +1,10 @@
 import discord
 from discord.ext import commands, tasks
-import asyncio
 import os
 from itertools import cycle
 from keep_alive import keep_alive
-import json
 
 prefix = "*"
-copyright = f"**H4ppu Bot**\n*By Mr. Appu™*"
 version = "0.1.0 stable"
 
 client = commands.Bot(command_prefix=prefix)

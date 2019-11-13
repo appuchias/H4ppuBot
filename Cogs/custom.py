@@ -14,8 +14,7 @@ class Custom(commands.Cog):
             if message.channel.id == 637356732137603092:
                 ayuda = discord.utils.get(message.guild.channels, name="help")
                 await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
-                await asyncio.sleep(2)
-                await message.remove()
+                await message.remove(delay=2)
 
     @commands.command()
     async def private(self, ctx, *, name):
@@ -27,6 +26,7 @@ class Custom(commands.Cog):
             await new.set_permissions(ctx.guild.default_role, connect=False)
         else:
             await ctx.author.send("Envía el mensaje en el canal correcto! :confused:")
+        await ctx.message.remove(delay=2)
 
 def setup(client):
     client.add_cog(Custom(client))

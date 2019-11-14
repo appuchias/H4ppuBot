@@ -96,7 +96,7 @@ class Mod(commands.Cog):
         await user.remove_roles(muted_role)
 
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def report(self, ctx, who : discord.Member, *, reason = "no reason"):
         author = ctx.author
         channel = discord.utils.get(ctx.guild.channels, name="reports")

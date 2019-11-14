@@ -76,17 +76,18 @@ class Events(commands.Cog):
         user = member
         channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
-        await self.log(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
+        await self.log(member, f"{user} se acaba de ir, parece que no lo pasaba bien D:")
 
 
 
     #Log
     async def log(self, ctx, msg):
         channel = self.client.fetch_channel(641041858012905480)
-        if channel in ctx.guild.channels:
+        if channel in ctx.guild.text_channels:
             pass
         else:
             await ctx.send("Error 404. Channel not found")
+            return
 
         await channel.send(msg)
         print(f"Log: {msg}")

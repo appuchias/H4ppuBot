@@ -38,10 +38,11 @@ class Extensions(commands.Cog):
     #Log
     async def log(self, ctx, msg):
         channel = self.client.fetch_channel(641041858012905480)
-        if channel in ctx.guild.channels:
+        if channel in ctx.guild.text_channels:
             pass
         else:
             await ctx.send("Error 404. Channel not found")
+            return
 
         await channel.send(msg)
         print(f"Log: {msg}")

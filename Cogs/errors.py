@@ -73,7 +73,7 @@ class Errors(commands.Cog):
 
     #Log
     async def log(self, ctx, msg):
-        channel = self.client.fetch_channel(641041858012905480)
+        channel = discord.utils.get(ctx.guild.text_channels, name="log")
         if channel in ctx.guild.text_channels:
             pass
         else:

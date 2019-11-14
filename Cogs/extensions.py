@@ -32,12 +32,12 @@ class Extensions(commands.Cog):
         await ctx.send('Recargando en breve...')
         await asyncio.sleep(1)
         self.client.load_extension(f'Cogs.{extension}')
-        await ctx.send(f'Extensión {extension} recragada!')
+        await ctx.send(f'Extensión {extension} recargada!')
         await self.log(ctx, f'Extension {extension} reloaded!')
 
     #Log
     async def log(self, ctx, msg):
-        channel = self.client.fetch_channel(641041858012905480)
+        channel = discord.utils.get(ctx.guild.text_channels, name="log")
         if channel in ctx.guild.text_channels:
             pass
         else:

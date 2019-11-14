@@ -113,7 +113,7 @@ class Mod(commands.Cog):
         for n in reports:
             case += reports[n]
         await appu.send(f"{author.mention} reported {who.mention} for **[{reason}]** and now has **[{reports[str(who.id)]}]** reports!")
-        await channel.send(f"~~~~~~~~~~~~~~~~~~\nCase **{case}**:\n - Member: **{who}**\n - Actual reports: **{reports.get(str(who.id))}**\n - Reason: *{reason}*")
+        await channel.send(f"~~-~~-~~-~~-~~-~~-~~-~~-~~\nCase **{case}**:\n - Member: **{who}**\n - Actual reports: **{reports.get(str(who.id))}**\n - Reason: *{reason}*")
 
         if reports.get(str(who.id)) >= 3:
             await appu.send(f"[{who}] has [{reports.get(str(who.id))}] reports! Be aware!")

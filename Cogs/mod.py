@@ -97,7 +97,7 @@ class Mod(commands.Cog):
 
     @commands.command()
     @commands.has_role("H4ppu")
-    async def report(self, ctx, who : discord.Member, *, reason = "None"):
+    async def report(self, ctx, who : discord.Member, *, reason = "no reason"):
         author = ctx.author
         channel = discord.utils.get(ctx.guild.channels, name="reports")
         appu = discord.utils.get(ctx.guild.members, id=455321214525767680)
@@ -120,6 +120,9 @@ class Mod(commands.Cog):
 
         with open("reports.json", "w") as w:
             w.write(json.dumps(reports, indent=4))
+
+        await self.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
+        await ctx.message.delete(delay=2)
 
     #Log
     async def log(self, ctx, msg):

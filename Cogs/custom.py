@@ -1,6 +1,5 @@
 import discord
-from discord.ext import commands, tasks
-import asyncio
+from discord.ext import commands
 
 class Custom(commands.Cog):
     def __init__(self, client):
@@ -10,11 +9,10 @@ class Custom(commands.Cog):
     async def msg_receieved(self, message):
         if message.embeds or message.author == self.client.user or message.author.bot or message.channel.id == 637356734649729044:
             return
-        else:
-            if message.channel.id == 637356732137603092:
-                ayuda = self.client.fetch_channel(637356732137603092)
-                await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
-                await message.delete(delay=2)
+        if message.channel.id == 637356732137603092:
+            ayuda = self.client.fetch_channel(637356732137603092)
+            await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
+            await message.delete(delay=2)
 
     @commands.command()
     async def private(self, ctx, *, name):

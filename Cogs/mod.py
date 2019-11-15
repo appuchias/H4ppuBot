@@ -14,23 +14,22 @@ class Mod(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        else:
-            user = message.author
-            bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
-            for word in bad_words:
-                if word in message.content.lower():
-                    await self.warning(user, user, f"Used a bad word ({word})")
-                    await self.log(user, f"{user} used a bad word ({word})")
+        user = message.author
+        bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
+        for word in bad_words:
+            if word in message.content.lower():
+                await self.warning(user, user, f"Used a bad word ({word})")
+                await self.log(user, f"{user} used a bad word ({word})")
 
     #Commands
     #Bulk message delete
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def clear(self, ctx, number):
         n = number
         if int(n) > 20:
-          await ctx.send('Demasiados mensajes para eliminar...')
-          return
+            await ctx.send('Demasiados mensajes para eliminar...')
+            return
         await ctx.channel.purge(limit=(int(n)+1))
         await ctx.send(f'{str(n)} mensaje(s) eliminados!')
         print(f'{str(n)} messages cleared in #{ctx.channel.name}')
@@ -39,7 +38,7 @@ class Mod(commands.Cog):
 
     #Kick someone
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def kick(self, ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f'{member} kickeado!')
@@ -48,7 +47,7 @@ class Mod(commands.Cog):
 
     #Ban someone
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'{member} baneado!')
@@ -57,7 +56,7 @@ class Mod(commands.Cog):
 
     #Unban someone
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         name, discr = member.split('#')
@@ -71,7 +70,7 @@ class Mod(commands.Cog):
         await ctx.message.delete(delay=2)
 
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def warn(self, ctx, user:discord.Member, *, reason = "None"):
         await self.warning(ctx, user, reason)
         await self.log(ctx, f"{ctx.author} warned {user.name}!")
@@ -80,14 +79,14 @@ class Mod(commands.Cog):
 
 
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def mute(self, ctx, user: discord.Member):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
         await self.log(ctx, f"{user.name} got muted!")
 
     @commands.command()
-    @commands.has_role("H4ppu")
+    @commands.has_role("Mods")
     async def tmute(self, ctx, user: discord.Member, n:int):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)

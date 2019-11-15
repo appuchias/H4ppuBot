@@ -39,32 +39,28 @@ class Chat(commands.Cog):
         await ctx.send(output)
         await self.log(ctx, f"Reverse: {output}")
 
-        @commands.command()
-        async def hello(self, ctx):
-            await ctx.send("world!")
+    @commands.command()
+    async def hello(self, ctx):
+        await ctx.send("world! :earth_africa:")
 
-        @commands.command()
-        async def repite(self, ctx, veces:int, *args):
-            output = ' '
-            for word in args:
-                output += word
-                output += ' '
+    @commands.command()
+    async def repite(self, ctx, veces:int, *args):
+        output = ' '
+        for word in args:
+            output += word
+            output += ' '
 
-            embed = discord.Embed(
-            title = f"**{self.client.user.name}**",
-            description = 'Repite "{}" {} veces'.format(output, veces),
-            colour = 0xf29fc5
-            )
+        embed = discord.Embed(
+        title = f"**{self.client.user.name}**",
+        description = 'Repite "{}" {} veces'.format(output, veces),
+        colour = 0xf29fc5
+        )
 
-            a = 1
-
-            if veces <= 10:
-                for i in range(veces):
-                    embed.add_field(name=output, value=f'Repetición {a} de {veces}', inline=False)
-                    a = a+1
-            else:
-                await ctx.send('Me da bastante pereza tantas veces, es muy repetitivo. Me empiezo a cansar a partir de 10')
-
+        if veces <= 10:
+            for i in range(veces):
+                embed.add_field(name=output, value=f'Repetición {i} de {veces}', inline=False)
+        else:
+            await ctx.send('Me da bastante pereza tantas veces, es muy repetitivo. Me empiezo a cansar a partir de 10')
             await ctx.send(embed=embed)
 
     @commands.command()
@@ -75,38 +71,13 @@ class Chat(commands.Cog):
 
     @commands.command()
     async def moneda(self, ctx):
-        numero = random.randint(0,2)
-        if numero == 1:
-            await ctx.send('Ha salido CARA!')
-        elif numero == 2:
-            await ctx.send('Ha salido CRUZ')
-        elif numero == 0:
-            number = random.randint(0,2)
-            if number == 1:
-                await ctx.send('Ha salido CARA!')
-            elif number == 2:
-                await ctx.send('Ha salido CRUZ')
-            elif number == 0:
-                n = random.randint(0,2)
-                if n == 1:
-                    await ctx.send('Ha salido CARA!')
-                elif n == 2:
-                    await ctx.send('Ha salido CRUZ')
-                elif n == 0:
-                    n = random.randint(0,2)
-                    if n == 1:
-                        await ctx.send('Ha salido CARA!')
-                    elif n == 2:
-                        await ctx.send('Ha salido CRUZ')
-                    elif n == 0:
-                        n = random.randint(0,2)
-                        if n == 1:
-                            await ctx.send('Ha salido CARA!')
-                        elif n == 2:
-                            await ctx.send('Ha salido CRUZ')
-                        elif n == 0:
-                            await ctx.send("**CANTO!!**:tada::tada:")
-        await self.log(ctx, f"Moneda: {numero}")
+        n = random.randint(0, 81)
+        if n < 40:
+            await ctx.send("Ha salido cara! :adult:")
+        elif n < 81:
+            await ctx.send("Ha salido cruz! :x:")
+        else:
+            await ctx.send("Ha salido CANTO!! :tada::tada:")
 
     #Log
     async def log(self, ctx, msg):

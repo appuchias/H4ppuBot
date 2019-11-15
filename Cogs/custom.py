@@ -19,9 +19,8 @@ class Custom(commands.Cog):
         if ctx.channel.id == 642856275104759809:
             mine = discord.utils.get(ctx.guild.voice_channels, id=641041878854139945)
             new = await mine.clone(name=name)
-            #new = discord.utils.get(message.guild.voice_channels, name=name)
-            await new.set_permissions(ctx.author, connect=True)
-            await new.set_permissions(ctx.guild.default_role, connect=False)
+            await new.set_permissions(ctx.author, view_channel=True, connect=True)
+            await new.set_permissions(ctx.guild.default_role, view_channel=False, connect=False)
         else:
             await ctx.author.send("Envía el mensaje en el canal correcto! :confused:")
         await ctx.message.delete(delay=2)

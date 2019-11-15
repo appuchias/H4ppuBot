@@ -143,38 +143,27 @@ class Mod(commands.Cog):
         with open("warns.json", "r") as f:
             warns = json.load(f)
 
-        if str(user.id) in warns:
-            warns[str(user.id)] += 1
-        else:
-            warns[str(user.id)] = 1
-        await user.send(f"Fuiste alertado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\tCon 5 avisos: Muteo de 12h.\tCon 10 avisos: Expulsión.\tCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
+        if not str(user.id) in warns:
+            warns[str(user.id)] = 0
+        warns[str(user.id)] += 1
+
+        await user.send(f"Fuiste avisado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\tCon 5 avisos: Muteo de 12h.\tCon 10 avisos: Expulsión.\tCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
         with open("warns.json", "w") as f:
             json.dump(warns, f, indent=4)
 
         if warns[str(user.id)] == 3:
             muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
-            if muted_role in ctx.guild.roles:
+            try:
                 for channel in ctx.guild.channels:
                     await channel.set_permissions(muted_role, reason="Muted role",send_messages=False)
                 await user.add_roles(muted_role)
                 await self.log(ctx, f"Temp muted {user.name} for warning accumulation")
                 await user.send(f"You got muted in **{ctx.guild.name}** for 1h for warning accumulation")
-            else:
-                muted_role = await ctx.guild.create_role(name="Muted role", permissions=discord.Permissions.none(), colour=discord.Color.dark_grey(), hoist=True)
-                for channel in ctx.guild.channels:
-                    await channel.set_permissions(muted_role, reason="Muted role",send_messages=False)
-                for cnt in range(6):
-                    try:
-                        muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
-                        await muted_role.edit(position=(len(ctx.guild.roles)-cnt))
-                        print(1)
-                    except:
-                        pass
-                await user.add_roles(muted_role)
-                await self.log(ctx, f"Temp muted {user.name} for warning accumulation")
-                await user.send(f"Muteado en **{ctx.guild.name}** durante 1h por acumulación de avisos")
+            except:
+                print("Warn exception in 1h mute")
             await asyncio.sleep(3600)
             await user.remove_roles(muted_role)
+
         elif warns[str(user.id)] == 5:
             muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
             if muted_role in ctx.guild.roles:
@@ -183,33 +172,20 @@ class Mod(commands.Cog):
                 await user.add_roles(muted_role)
                 await self.log(ctx, f"Temp muted {user.name} for warning accumulation")
                 await user.send(f"Muteado en **{ctx.guild.name}** durante 12h por acumulación de avisos")
-            else:
-                muted_role = await ctx.guild.create_role(name="Muted role", permissions=discord.Permissions.none(), colour=discord.Color.dark_grey(), hoist=True)
-                for channel in ctx.guild.channels:
-                    await channel.set_permissions(muted_role, reason="Muted role",send_messages=False)
-                for cnt in range(6):
-                    try:
-                        muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
-                        await muted_role.edit(position=(len(ctx.guild.roles)-cnt))
-                        print(1)
-                    except:
-                        pass
-                await user.add_roles(muted_role)
-                await user.send(f"Has sido muteado en **{ctx.guild.name}** durante 12h por acumulación de avisos")
             await asyncio.sleep(43200)
             await user.remove_roles(muted_role)
+
         elif warns[str(user.id)] == 10:
             await user.send(f"Has sido expulsado de **{ctx.guild.name}** por acumulación de avisos")
             await user.kick(reason="Too many warns")
-            msg = await ctx.send(f'{user.id} kicked!')
+            await ctx.send(f'{user.id} kickeado!')
             await self.log(ctx, f'{user.id} was kicked by {ctx.message.author}')
-            await msg.delete(delay=2)
+
         elif warns[str(user.id)] == 15:
             await user.send(f"Has sido baneado de **{ctx.guild.name}** por acumulación excesiva de avisos. No molestes en otros servidores! GLHF!!")
             await user.ban(reason=reason)
-            msg = await ctx.send(f'{user.id} banned!')
+            await ctx.send(f'{user.id} baneado!')
             await self.log(ctx, f'{user.id} was banned by {ctx.message.author}')
-            await msg.delete(delay=2)
 
 def setup(client):
     client.add_cog(Mod(client))

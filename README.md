@@ -24,4 +24,6 @@ Lee LICENSE.md para saber más sobre la licencia de uso del repositorio.
 Para ver una versión simplificada:
 ![H4ppuBot_LICENSE](https://github.com/appuchias/H4ppuBot/blob/master/H4ppuBot_LICENSE.png)
 
-Cualquier cosa contáctame por: [email](mailto:fernandez.fer.pabloff@gmail.com)
+El bot está diseñado para ser hosteado en repl.it y por ello hay archivos innecesarios en el caso de autohostearlo, aunque también falta un archivo para hostearlo en repl.it (un .env con el token). En caso de querer replicarlo y encontrarse con problemas, contáctame e intentaré ayudarte
+
+Cualquier cosa contáctame por: [mail](mailto:fernandez.fer.pabloff@gmail.com) (Con asunto GitHub: H4ppuBot)

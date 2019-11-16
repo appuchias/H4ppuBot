@@ -5,7 +5,7 @@ from itertools import cycle
 from keep_alive import keep_alive
 
 prefix = "*"
-version = "0.3.0"
+version = "0.3.1"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -31,7 +31,7 @@ async def emload(ctx, extension):
 async def help(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
-    embed.set_footer(text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Todos los comandos se añaden a log', icon_url=ctx.author.avatar_url)
+    embed.set_footer(text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Bot con log', icon_url=ctx.author.avatar_url)
 
     embed.add_field(name='`~General~`', value='**Comandos generales**', inline=False)
     embed.add_field(name='*help', value='Muestra este comando', inline=False)

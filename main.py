@@ -1,14 +1,11 @@
 import discord
 from discord.ext import commands, tasks
-import asyncio
 import os
 from itertools import cycle
 from keep_alive import keep_alive
-import json
 
 prefix = "*"
-copyright = f"**H4ppu Bot**\n*By Mr. Appu™*"
-version = "0.1.0 stable"
+version = "0.2.3 development"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -28,7 +25,7 @@ async def on_ready():
 @commands.check(commands.is_owner())
 async def emload(ctx, extension):
     client.load_extension(f'Cogs.{extension}')
-    await ctx.send(f'Extensión {extension} cargada!')
+    await ctx.send(f'Carga de emergencia de la extensión {extension}')
 
 @client.command()
 async def help(ctx):

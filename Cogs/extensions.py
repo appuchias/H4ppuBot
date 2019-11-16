@@ -12,6 +12,7 @@ class Extensions(commands.Cog):
     #Commands
     #Load an extension
     @commands.command()
+    @commands.has_role("Mods")
     async def load(self, ctx, extension):
         self.client.load_extension(f'Cogs.{extension}')
         await ctx.send(f'Extensión {extension} cargada!')
@@ -19,6 +20,7 @@ class Extensions(commands.Cog):
 
     #Unload an extension
     @commands.command()
+    @commands.has_role("Mods")
     async def unload(self, ctx, extension):
         self.client.unload_extension(f'Cogs.{extension}')
         await ctx.send(f'Extensión {extension} descargada!')
@@ -26,22 +28,24 @@ class Extensions(commands.Cog):
 
     #Reload an extension
     @commands.command()
+    @commands.has_role("Mods")
     async def reload(self, ctx, extension):
         self.client.unload_extension(f'Cogs.{extension}')
         await ctx.send(f'Extension {extension} descargada!')
         await ctx.send('Recargando en breve...')
         await asyncio.sleep(1)
         self.client.load_extension(f'Cogs.{extension}')
-        await ctx.send(f'Extensión {extension} recragada!')
+        await ctx.send(f'Extensión {extension} recargada!')
         await self.log(ctx, f'Extension {extension} reloaded!')
 
     #Log
     async def log(self, ctx, msg):
-        channel = ctx.guild.fetch_channel(641041858012905480)
-        if channel in ctx.guild.channels:
+        channel = discord.utils.get(ctx.guild.text_channels, name="log")
+        if channel in ctx.guild.text_channels:
             pass
         else:
             await ctx.send("Error 404. Channel not found")
+            return
 
         await channel.send(msg)
         print(f"Log: {msg}")

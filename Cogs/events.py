@@ -17,7 +17,7 @@ class Events(commands.Cog):
     #Events
     @commands.Cog.listener(name="on_message")
     async def on_msg(self, message):
-        if message.embeds or message.author == self.client.user or message.author.bot or message.channel.id == 637356734649729044:
+        if message.embeds or message.author == self.client.user or message.author.bot:
             return
         else:
             await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
@@ -76,17 +76,18 @@ class Events(commands.Cog):
         user = member
         channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
-        await self.log(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
+        await self.log(member, f"{user} se acaba de ir, parece que no lo pasaba bien D:")
 
 
 
     #Log
     async def log(self, ctx, msg):
-        channel = ctx.guild.fetch_channel(641041858012905480)
-        if channel in ctx.guild.channels:
+        channel = discord.utils.get(ctx.guild.text_channels, name="log")
+        if channel in ctx.guild.text_channels:
             pass
         else:
             await ctx.send("Error 404. Channel not found")
+            return
 
         await channel.send(msg)
         print(f"Log: {msg}")

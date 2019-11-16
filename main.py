@@ -5,7 +5,7 @@ from itertools import cycle
 from keep_alive import keep_alive
 
 prefix = "*"
-version = "0.2.3 development"
+version = "0.3.0"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -35,7 +35,25 @@ async def help(ctx):
 
     embed.add_field(name='`~General~`', value='**Comandos generales**', inline=False)
     embed.add_field(name='*help', value='Muestra este comando', inline=False)
-    embed.add_field(name='*prefix <prefijo>', value="Cambia el prefijo del bot [Solo Propietario]", inline=False)
+
+    embed.add_field(name='`~Chat~`', value='**Comandos con respuestas en el chat directas**', inline=False)
+    embed.add_field(name='*suma *<n>', value='Suma los números que le pases.', inline=False)
+    embed.add_field(name='*ping', value='Responde Pong! Usado para medir la latencia', inline=False)
+    embed.add_field(name='*di <msg>', value='Dice lo que pongas.', inline=False)
+    embed.add_field(name='*reverse <msg>', value='Dice al revés lo que pone.', inline=False)
+    embed.add_field(name=f'*hello', value='World!', inline=False)
+    embed.add_field(name='*repite <veces> <msg>', value='Repite lo que quieras hasta 10 veces.', inline=False)
+    embed.add_field(name='*dado <n de caras>', value='Tira un dado de cualquier número de caras.', inline=False)
+    embed.add_field(name='*moneda', value='Lanza una moneda.', inline=False)
+
+    embed.add_field(name='`~Custom~`', value='**Comandos de tareas muy concretas**', inline=False)
+    embed.add_field(name=f'*private', value='Crea un canal de voz privado para ti. (No spamear <#641041860294606915>) [Solo en <#642856275104759809>]', inline=False)
+
+    embed.add_field(name='`~Extensions~`', value='**Comandos de manejo de extensiones**', inline=False)
+    embed.add_field(name="*load <Extensión>", value="Carga la extensión que le digas [Solo Mods]", inline=False)
+    embed.add_field(name="*unload <Extensión>", value="Descarga la extensión que le digas [Solo Mods]", inline=False)
+    embed.add_field(name="*reload <Extensión>", value="Recarga la extensión que le digas [Solo Mods]", inline=False)
+
     embed.add_field(name='`~Mod~`', value='**Comandos de moderación** [Solo Mods]', inline=False)
     embed.add_field(name='*clear <n>', value='Elimina hasta 20 mensajes', inline=False)
     embed.add_field(name='*kick <@member> [motivo]', value='Echa a alguien', inline=False)
@@ -44,18 +62,7 @@ async def help(ctx):
     embed.add_field(name='*warn <@member> [motivo]', value="Avisa a alguien. Especifica motivo por favor", inline=False)
     embed.add_field(name='*mute <@member>', value="Mutea a alguien", inline=False)
     embed.add_field(name='*tmute <@member> <tiempo(minutos)>', value="Mutea a alguien durante el tiempo que le digas", inline=False)
-    embed.add_field(name='`~Basic~`', value='**Comandos básicos**', inline=False)
-    embed.add_field(name="*load <Extensión>", value="Carga la extensión que le digas [Only Mods]", inline=False)
-    embed.add_field(name="*unload <Extensión>", value="Descarga la extensión que le digas [Only Mods]", inline=False)
-    embed.add_field(name="*reload <Extensión>", value="Recarga la extensión que le digas [Only Mods]", inline=False)
-    embed.add_field(name='`~Chat~`', value='**Comandos con respuestas en el chat directas**', inline=False)
-    embed.add_field(name='*ping', value='Responde Pong! Usado para medir la latencia', inline=False)
-    embed.add_field(name='*di <msg>', value='Dice lo que pongas.', inline=False)
-    embed.add_field(name='*reverse <msg>', value='Dice al revés lo que pone.', inline=False)
-    embed.add_field(name='*repite <veces> <msg>', value='Repite lo que quieras hasta 10 veces.', inline=False)
-    embed.add_field(name='*suma <n1> <n2> <n3>', value='Suma hasta 3 números.', inline=False)
-    embed.add_field(name='*dado <n de caras>', value='Tira un dado de cualquier número de caras.', inline=False)
-    embed.add_field(name='*moneda', value='Lanza una moneda.', inline=False)
+
     #embed.add_field(name=f'*', value=None, inline=False)
     await ctx.send(embed=embed)
 

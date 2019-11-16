@@ -1,14 +1,10 @@
 import discord
 from discord.ext import commands
 import asyncio
-#import datetime as dt
-#import pytz
 
 #Bot prefix
 prefix = '*'
 users = {}
-
-#madrid_tz = pytz.timezone("Europe/London")
 
 class Events(commands.Cog):
     def __init__(self, client):
@@ -21,8 +17,6 @@ class Events(commands.Cog):
             return
         else:
             await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
-
-
 
     #When a reaction is added to a message
     @commands.Cog.listener()
@@ -77,8 +71,6 @@ class Events(commands.Cog):
         channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
         await self.log(member, f"{user} se acaba de ir, parece que no lo pasaba bien D:")
-
-
 
     #Log
     async def log(self, ctx, msg):

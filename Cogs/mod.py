@@ -12,7 +12,7 @@ class Mod(commands.Cog):
     #When a message is sent
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author.bot:
+        if message.author.bot or message.chcannel.id == 637356734649729044:
             return
         user = message.author
         bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]

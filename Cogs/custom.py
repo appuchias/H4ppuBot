@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 class Custom(commands.Cog):
     def __init__(self, client):
@@ -7,7 +7,7 @@ class Custom(commands.Cog):
 
     @commands.Cog.listener(name="on_message")
     async def msg_receieved(self, message):
-        if message.embeds or message.author == self.client.user or message.author.bot or message.channel.id == 637356734649729044:
+        if message.embeds or message.author == self.client.user or message.author.bot:
             return
         if message.channel.id == 637356732137603092:
             ayuda = self.client.fetch_channel(637356732137603092)
@@ -40,6 +40,16 @@ class Custom(commands.Cog):
 
         with open("modlog.txt", "a") as f:
             f.write(f"Log: {msg}\n")
+
+
+    @tasks.loop(minutes=1)
+    async def members_update(self):
+        channel = await self.client.fetch_channel(645312760598495253)
+        members = 0
+        for member in channel.guild.members:
+            if not member.bot:
+                members += 1
+        await channel.edit(name=f"Miembros: {members}", reason="Member update")
 
 def setup(client):
     client.add_cog(Custom(client))

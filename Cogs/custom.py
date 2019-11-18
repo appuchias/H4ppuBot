@@ -9,8 +9,8 @@ class Custom(commands.Cog):
     async def msg_receieved(self, message):
         if message.embeds or message.author == self.client.user or message.author.bot:
             return
-        if message.channel.id == 637356732137603092:
-            ayuda = self.client.fetch_channel(637356732137603092)
+        if message.channel.id == 641041861800362014:
+            ayuda = await self.client.fetch_channel(641041861800362014)
             await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
             await message.delete(delay=2)
 

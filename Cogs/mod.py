@@ -31,10 +31,10 @@ class Mod(commands.Cog):
             await ctx.send('Demasiados mensajes para eliminar...')
             return
         await ctx.channel.purge(limit=(int(n)+1))
-        await ctx.send(f'{str(n)} mensaje(s) eliminados!')
+        msg = await ctx.send(f'{str(n)} mensaje(s) eliminados!')
         print(f'{str(n)} messages cleared in #{ctx.channel.name}')
         await self.log(ctx, f'{str(n)} messages cleared in #{ctx.channel.name} by {ctx.message.author}')
-        await ctx.message.delete(delay=2)
+        await msg.delete(delay=2)
 
     #Kick someone
     @commands.command()

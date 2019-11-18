@@ -53,7 +53,7 @@ class Chat(commands.Cog):
         embed = discord.Embed(
         title = f"**{self.client.user.name}**",
         description = 'Repite "{}" {} veces'.format(output, veces),
-        colour = 0xf29fc5
+        colour = 0x7289DA
         )
 
         if veces <= 10:

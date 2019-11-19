@@ -1,7 +1,7 @@
-import discord
-from discord.ext import commands
 import asyncio
 import json
+import discord
+from discord.ext import commands
 
 class Mod(commands.Cog):
 
@@ -20,6 +20,11 @@ class Mod(commands.Cog):
             if word in message.content.lower():
                 await self.warning(user, user, f"Used a bad word ({word})")
                 await self.log(user, f"{user} used a bad word ({word})")
+        if "cucaracha" in message.content.lower():
+            if message.author.id == 395672084451295242:
+                for cnt in range(0, 5):
+                    await message.author.send("Nadie quiere oír eso...\n\t\t\t\t\t\t~Appu")
+                    await asyncio.sleep(1)
 
     #Commands
     #Bulk message delete

@@ -7,7 +7,7 @@ from discord.ext import commands, tasks
 import log
 
 prefix = "*"
-version = "0.3.2"
+version = "0.3.3"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')

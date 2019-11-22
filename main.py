@@ -1,6 +1,7 @@
 import os
 from itertools import cycle
 from keep_alive import keep_alive
+from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands, tasks
 
@@ -31,7 +32,8 @@ async def emload(ctx, extension):
 async def help(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
-    embed.set_footer(text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Bot con log', icon_url=ctx.author.avatar_url)
+    embed.set_footer(
+        text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Bot con log\ndt.now().strftime("%H:%M:%S %d/%m/%Y")', icon_url=ctx.author.avatar_url)
 
     embed.add_field(name='`~General~`', value='**Comandos generales**', inline=False)
     embed.add_field(name='*help', value='Muestra este comando', inline=False)

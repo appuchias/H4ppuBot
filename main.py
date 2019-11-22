@@ -1,8 +1,8 @@
-import discord
-from discord.ext import commands, tasks
 import os
 from itertools import cycle
 from keep_alive import keep_alive
+import discord
+from discord.ext import commands, tasks
 
 prefix = "*"
 version = "0.3.2"

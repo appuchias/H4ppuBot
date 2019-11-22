@@ -25,6 +25,7 @@ class Mod(commands.Cog):
                 for cnt in range(0, 5):
                     await message.author.send("Nadie quiere oír eso...\n\t\t\t\t\t\t~Appu")
                     await asyncio.sleep(1)
+                    cnt = cnt
 
     #Commands
     #Bulk message delete

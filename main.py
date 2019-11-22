@@ -38,11 +38,11 @@ async def help(ctx):
 
     embed.add_field(name='`~Chat~`', value='**Comandos con respuestas en el chat directas**', inline=False)
     embed.add_field(name='***suma <n>**', value='Suma los números que le pases.', inline=False)
-    embed.add_field(name='***ping*', value='Responde Pong! Usado para medir la latencia', inline=False)
+    embed.add_field(name='***ping**', value='Responde Pong! Usado para medir la latencia', inline=False)
     embed.add_field(name='***di <msg>***', value='Dice lo que pongas.', inline=False)
     embed.add_field(name='***reverse <msg>**', value='Dice al revés lo que pone.', inline=False)
     embed.add_field(name='***hello**', value='World!', inline=False)
-    embed.add_field(name='**repite <veces> <msg>**', value='Repite lo que quieras hasta 10 veces.', inline=False)
+    embed.add_field(name='***repite <veces> <msg>**', value='Repite lo que quieras hasta 10 veces.', inline=False)
     embed.add_field(name='***dado <n de caras>**', value='Tira un dado de cualquier número de caras.', inline=False)
     embed.add_field(name='***moneda**', value='Lanza una moneda.', inline=False)
 

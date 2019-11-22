@@ -7,6 +7,7 @@ El bot está dividido en:
 	* main.py
 	* .env
 	* modlog.txt
+	* reports.json
 	* warns.json
 	* LICENSE
 	* README.md

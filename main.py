@@ -5,7 +5,7 @@ from itertools import cycle
 from keep_alive import keep_alive
 
 prefix = "*"
-version = "0.3.1"
+version = "0.3.2"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')

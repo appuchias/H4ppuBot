@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import asyncio
+import log
 
 prefix = '*'
 
@@ -16,7 +17,7 @@ class Extensions(commands.Cog):
     async def load(self, ctx, extension):
         self.client.load_extension(f'Cogs.{extension}')
         await ctx.send(f'Extensión {extension} cargada!')
-        await self.log(ctx, f'Extension {extension} loaded!')
+        await log.log(ctx, f'Extension {extension} loaded!')
 
     #Unload an extension
     @commands.command()
@@ -24,7 +25,7 @@ class Extensions(commands.Cog):
     async def unload(self, ctx, extension):
         self.client.unload_extension(f'Cogs.{extension}')
         await ctx.send(f'Extensión {extension} descargada!')
-        await self.log(ctx, f'Extension {extension} unloaded!')
+        await log.log(ctx, f'Extension {extension} unloaded!')
 
     #Reload an extension
     @commands.command()
@@ -36,7 +37,7 @@ class Extensions(commands.Cog):
         await asyncio.sleep(1)
         self.client.load_extension(f'Cogs.{extension}')
         await ctx.send(f'Extensión {extension} recargada!')
-        await self.log(ctx, f'Extension {extension} reloaded!')
+        await log.log(ctx, f'Extension {extension} reloaded!')
 
     #Log
     async def log(self, ctx, msg):

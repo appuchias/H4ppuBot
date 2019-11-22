@@ -4,6 +4,7 @@ from keep_alive import keep_alive
 from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands, tasks
+import log
 
 prefix = "*"
 version = "0.3.2"
@@ -16,6 +17,7 @@ async def on_ready():
     print('Connected as:')
     print('{}: {}'.format(client.user.name, client.user.id))
     print('Prefix: *')
+    print(dt.now().strftime("%H:%M:%S %d/%m/%Y"))
     print('--------------')
     change_status.start()
     game=discord.Game(name=f"*help | {client.user.name} | By Appu")
@@ -79,11 +81,12 @@ async def logout(ctx):
     await client.logout()
 
 #Load all extensions
-extensions=[]
-for filename in os.listdir('./Cogs'):
+extensions = []
+for filename in os.listdir('./'):
     if str(filename).endswith('.py'):
-        client.load_extension(f'Cogs.{filename[:-3]}')
-        extensions.append(filename[:-3])
+        if ("cog" in str(filename[:-3])):
+            client.load_extension(filename[:-3])
+            extensions.append(filename[:-3])
 print(f'{extensions} loaded!')
 
 

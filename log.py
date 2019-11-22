@@ -1,4 +1,6 @@
-async def log(self, ctx, msg):
+import discord
+
+async def log(ctx, msg):
         channel = discord.utils.get(ctx.guild.text_channels, name="log")
         if channel in ctx.guild.text_channels:
             pass

@@ -3,6 +3,7 @@ import json
 from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands
+import log
 
 class Mod(commands.Cog):
 
@@ -20,7 +21,7 @@ class Mod(commands.Cog):
         for word in bad_words:
             if word in message.content.lower():
                 await self.warning(user, user, f"Used a bad word ({word})")
-                await self.log(user, f"{user} used a bad word ({word})")
+                await log.log(user, f"{user} used a bad word ({word})")
         if "cucaracha" in message.content.lower():
             if message.author.id == 395672084451295242:
                 for cnt in range(0, 5):
@@ -40,7 +41,7 @@ class Mod(commands.Cog):
         await ctx.channel.purge(limit=(int(n)+1))
         msg = await ctx.send(f'{str(n)} mensaje(s) eliminados!')
         print(f'{str(n)} messages cleared in #{ctx.channel.name}')
-        await self.log(ctx, f'{str(n)} messages cleared in #{ctx.channel.name} by {ctx.message.author}')
+        await log.log(ctx, f'{str(n)} messages cleared in #{ctx.channel.name} by {ctx.message.author}')
         await msg.delete(delay=2)
 
     #Kick someone
@@ -49,7 +50,7 @@ class Mod(commands.Cog):
     async def kick(self, ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f'{member} kickeado!')
-        await self.log(ctx, f'{member} was kicked by {ctx.message.author}')
+        await log.log(ctx, f'{member} was kicked by {ctx.message.author}')
         await ctx.message.delete(delay=2)
 
     #Ban someone
@@ -58,7 +59,7 @@ class Mod(commands.Cog):
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'{member} baneado!')
-        await self.log(ctx, f'{member} was banned by {ctx.message.author}')
+        await log.log(ctx, f'{member} was banned by {ctx.message.author}')
         await ctx.message.delete(delay=2)
 
     #Unban someone
@@ -72,7 +73,7 @@ class Mod(commands.Cog):
             user = ban_entry.user
             if(user.name, user.discriminator) == (name, discr):
                 await ctx.guild.unban(user)
-                await self.log(ctx, f'{user} was unbanned by {ctx.message.author}')
+                await log.log(ctx, f'{user} was unbanned by {ctx.message.author}')
         await ctx.send(f'{member} desbaneado!')
         await ctx.message.delete(delay=2)
 
@@ -80,7 +81,7 @@ class Mod(commands.Cog):
     @commands.has_role("Mods")
     async def warn(self, ctx, user:discord.Member, *, reason = "None"):
         await self.warning(ctx, user, reason)
-        await self.log(ctx, f"{ctx.author} warned {user.name}!")
+        await log.log(ctx, f"{ctx.author} warned {user.name}!")
         await ctx.send(f"{user.name} fue alertado por {ctx.author}")
         await ctx.message.delete(delay=2)
 
@@ -90,14 +91,14 @@ class Mod(commands.Cog):
     async def mute(self, ctx, user: discord.Member):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
-        await self.log(ctx, f"{user.name} got muted!")
+        await log.log(ctx, f"{user.name} got muted!")
 
     @commands.command()
     @commands.has_role("Mods")
     async def tmute(self, ctx, user: discord.Member, n:int):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
-        await self.log(ctx, f"{user.name} got muted for {n}m!")
+        await log.log(ctx, f"{user.name} got muted for {n}m!")
         await asyncio.sleep(n*60)
         await user.remove_roles(muted_role)
 
@@ -127,7 +128,7 @@ class Mod(commands.Cog):
         with open("reports.json", "w") as w:
             w.write(json.dumps(reports, indent=4))
 
-        await self.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
+        await log.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
         await ctx.message.delete(delay=2)
 
     #Log
@@ -164,7 +165,7 @@ class Mod(commands.Cog):
                 for channel in ctx.guild.channels:
                     await channel.set_permissions(muted_role, reason="Muted role",send_messages=False)
                 await user.add_roles(muted_role)
-                await self.log(ctx, f"Temp muted {user.name} for warning accumulation")
+                await log.log(ctx, f"Temp muted {user.name} for warning accumulation")
                 await user.send(f"You got muted in **{ctx.guild.name}** for 1h for warning accumulation")
             except:
                 print("Warn exception in 1h mute")
@@ -177,7 +178,7 @@ class Mod(commands.Cog):
                 for channel in ctx.guild.channels:
                     await channel.set_permissions(muted_role, reason="Muted role",send_messages=False)
                 await user.add_roles(muted_role)
-                await self.log(ctx, f"Temp muted {user.name} for warning accumulation")
+                await log.log(ctx, f"Temp muted {user.name} for warning accumulation")
                 await user.send(f"Muteado en **{ctx.guild.name}** durante 12h por acumulación de avisos")
             await asyncio.sleep(43200)
             await user.remove_roles(muted_role)
@@ -186,13 +187,13 @@ class Mod(commands.Cog):
             await user.send(f"Has sido expulsado de **{ctx.guild.name}** por acumulación de avisos")
             await user.kick(reason="Too many warns")
             await ctx.send(f'{user.id} kickeado!')
-            await self.log(ctx, f'{user.id} was kicked by {ctx.message.author}')
+            await log.log(ctx, f'{user.id} was kicked by {ctx.message.author}')
 
         elif warns[str(user.id)] == 15:
             await user.send(f"Has sido baneado de **{ctx.guild.name}** por acumulación excesiva de avisos. No molestes en otros servidores! GLHF!!")
             await user.ban(reason=reason)
             await ctx.send(f'{user.id} baneado!')
-            await self.log(ctx, f'{user.id} was banned by {ctx.message.author}')
+            await log.log(ctx, f'{user.id} was banned by {ctx.message.author}')
 
 def setup(client):
     client.add_cog(Mod(client))

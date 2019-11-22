@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+import log
 
 class Chat(commands.Cog):
     def __init__(self,client):
@@ -13,12 +14,12 @@ class Chat(commands.Cog):
             output+=int(n)
             print(output)
         await ctx.send(output)
-        await self.log(ctx, output)
+        await log.log(ctx, output)
 
     @commands.command()
     async def ping(self, ctx):
         await ctx.send(f"Pong! ||({round(self.client.latency*1000)}ms)||")
-        await self.log(ctx, f"Pong! ||({round(self.client.latency*1000)}ms)||")
+        await log.log(ctx, f"Pong! ||({round(self.client.latency*1000)}ms)||")
 
     @commands.command()
     async def di(self, ctx, *, args):
@@ -27,7 +28,7 @@ class Chat(commands.Cog):
             output += word
             output += ' '
         await ctx.send(output)
-        await self.log(ctx, output)
+        await log.log(ctx, output)
 
     @commands.command()
     async def reverse(self, ctx, *, args):
@@ -37,7 +38,7 @@ class Chat(commands.Cog):
             output += ' '
         output = output[::-1]
         await ctx.send(output)
-        await self.log(ctx, f"Reverse: {output}")
+        await log.log(ctx, f"Reverse: {output}")
 
     @commands.command()
     async def hello(self, ctx):
@@ -67,7 +68,7 @@ class Chat(commands.Cog):
     async def dado(self, ctx, n):
         number = random.randint(1,int(n))
         await ctx.send(number)
-        await self.log(ctx, f"Dado: {number}")
+        await log.log(ctx, f"Dado: {number}")
 
     @commands.command()
     async def moneda(self, ctx):

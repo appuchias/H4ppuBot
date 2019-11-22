@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands, tasks
+import log
 
 class Custom(commands.Cog):
     def __init__(self, client):
@@ -24,7 +25,7 @@ class Custom(commands.Cog):
         else:
             await ctx.author.send("Envía el mensaje en el canal correcto! :confused:")
         await ctx.message.delete(delay=1)
-        await self.log(ctx, f"Private channel {name} created by {ctx.author}")
+        await log.log(ctx, f"Private channel {name} created by {ctx.author}")
 
     #Log
     async def log(self, ctx, msg):

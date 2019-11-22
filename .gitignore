@@ -1,12 +1,11 @@
-
 .env
 
 __pycache__
-
-*.pyc
+.pyc
 
 .vscode
 
 modlog.txt
 
 warns.json
+reports.json

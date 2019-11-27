@@ -71,14 +71,20 @@ class Chat(commands.Cog):
         await log.log(ctx, f"Dado: {number}")
 
     @commands.command()
-    async def moneda(self, ctx):
-        n = random.randint(0, 81)
-        if n < 40:
-            await ctx.send("Ha salido cara! :adult:")
-        elif n < 81:
-            await ctx.send("Ha salido cruz! :x:")
+    async def moneda(self, ctx, repetitions:int=1):
+        embed = discord.Embed(title="", description="", colour=discord.Color.gold)
+        if repetitions > 0 and repetitions <= 20:
+            for cnt in range(1, repetitions+1):
+                n = random.randint(0, 81)
+                if n < 40:
+                    embed.add_field(name=f"Repetición {cnt} de {repetitions}", value="CARA! :adult:")
+                elif n < 81:
+                    embed.add_field(name=f"Repetición {cnt} de {repetitions}", value="CRUZ! :x:")
+                else:
+                    embed.add_field(name=f"Repetición {cnt} de {repetitions}", value="CANTOOOOO!!! :tada::tada:")
+            await ctx.send(embed=embed)
         else:
-            await ctx.send("Ha salido CANTO!! :tada::tada:")
+            await ctx.send(f"Por favor, no te pases, {repetitions} está por encima de 20, mi máximo de repeticiones del comando! :warning:")
 
     #Log
     async def log(self, ctx, msg):

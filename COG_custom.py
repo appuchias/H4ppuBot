@@ -83,14 +83,14 @@ class Custom(commands.Cog):
             f.write(f"Log: {msg}\n")
 
 
-    @tasks.loop(minutes=1)
+    @tasks.loop(seconds=10)
     async def members_update(self):
         channel = await self.client.fetch_channel(645312760598495253)
         members = 0
         for member in channel.guild.members:
             if not member.bot:
                 members += 1
-        await channel.edit(name=f"Miembros: {members}", reason="Member update")
+        await channel.edit(name=f"Miembros humanos: {members}", reason="Member update")
 
 def setup(client):
     client.add_cog(Custom(client))

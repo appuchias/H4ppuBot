@@ -8,7 +8,6 @@ prefix = '*'
 class Extensions(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.client.log = self.log
 
     #Commands
     #Load an extension
@@ -38,21 +37,6 @@ class Extensions(commands.Cog):
         self.client.load_extension(f'COG_{extension}')
         await ctx.send(f'Extensión {extension} recargada!')
         await log.log(ctx, f'Extension {extension} reloaded!')
-
-    #Log
-    async def log(self, ctx, msg):
-        channel = discord.utils.get(ctx.guild.text_channels, name="log")
-        if channel in ctx.guild.text_channels:
-            pass
-        else:
-            await ctx.send("Error 404. Channel not found")
-            return
-
-        await channel.send(msg)
-        print(f"Log: {msg}")
-
-        with open("modlog.txt", "a") as f:
-            f.write(f"Log: {msg}\n")
 
 def setup(client):
     client.add_cog(Extensions(client))

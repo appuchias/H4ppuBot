@@ -61,7 +61,7 @@ async def help(ctx):
     embed.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
     embed.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
     embed.add_field(name='***ban <@member> [motivo]**', value='Banea a alguien', inline=False)
-    embed.add_field(name='***unban <nombre del miembro>**', value='Elimina el ban al miembro especificado', inline=False)
+#    embed.add_field(name='***unban <nombre del miembro>**', value='Elimina el ban al miembro especificado', inline=False)
     embed.add_field(name='***warn <@member> [motivo]**', value="Avisa a alguien. Especifica motivo por favor", inline=False)
     embed.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
     embed.add_field(name='***tmute <@member> <tiempo(minutos)>**', value="Mutea a alguien durante el tiempo que le digas", inline=False)

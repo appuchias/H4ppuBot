@@ -62,20 +62,20 @@ class Mod(commands.Cog):
         await log.log(ctx, f'{member} was banned by {ctx.message.author}')
         await ctx.message.delete(delay=2)
 
-    #Unban someone
-    @commands.command()
-    @commands.has_role("Mods")
-    async def unban(self, ctx, *, member):
-        banned_users = await ctx.guild.bans()
-        name, discr = member.split('#')
+    # #Unban someone
+    # @commands.command()
+    # @commands.has_role("Mods")
+    # async def unban(self, ctx, *, member):
+    #     banned_users = await ctx.guild.bans()
+    #     name, discr = member.split('#')
 
-        for ban_entry in banned_users:
-            user = ban_entry.user
-            if(user.name, user.discriminator) == (name, discr):
-                await ctx.guild.unban(user)
-                await log.log(ctx, f'{user} was unbanned by {ctx.message.author}')
-        await ctx.send(f'{member} desbaneado!')
-        await ctx.message.delete(delay=2)
+    #     for ban_entry in banned_users:
+    #         user = ban_entry.user
+    #         if(user.name, user.discriminator) == (name, discr):
+    #             await ctx.guild.unban(user)
+    #             await log.log(ctx, f'{user} was unbanned by {ctx.message.author}')
+    #     await ctx.send(f'{member} desbaneado!')
+    #     await ctx.message.delete(delay=2)
 
     @commands.command()
     @commands.has_role("Mods")

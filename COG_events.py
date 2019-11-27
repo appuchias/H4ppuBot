@@ -18,15 +18,15 @@ class Events(commands.Cog):
         else:
             await log.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
 
-    #When a reaction is added to a message
-    @commands.Cog.listener()
-    async def on_reaction_add(self, reaction, user):
-        await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} añadida al mensaje "{reaction.message.content}" por {user}')
+    # #When a reaction is added to a message
+    # @commands.Cog.listener()
+    # async def on_reaction_add(self, reaction, user):
+    #     await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} añadida al mensaje "{reaction.message.content}" por {user}')
 
-    #When a reaction is removed from a message
-    @commands.Cog.listener()
-    async def on_reaction_remove(self, reaction, user):
-        await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} eliminada del mensaje "{reaction.message.content}" por {user}')
+    # #When a reaction is removed from a message
+    # @commands.Cog.listener()
+    # async def on_reaction_remove(self, reaction, user):
+    #     await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} eliminada del mensaje "{reaction.message.content}" por {user}')
 
     @commands.Cog.listener()
     async def on_member_join(self, member):

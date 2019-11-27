@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands, tasks
 import log
 
+users = {}
+
 class Custom(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -14,6 +16,41 @@ class Custom(commands.Cog):
             ayuda = await self.client.fetch_channel(641041861800362014)
             await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
             await message.delete(delay=2)
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        guild = await self.client.fetch_guild(payload.guild_id) # Defino para usarlas más tarde
+        channel = self.client.get_channel(payload.channel_id)
+        user = await guild.fetch_member(payload.user_id)
+        userid = payload.user_id
+
+        if payload.emoji.name == "✅": # El emoji de la reacción
+            if channel.id == 641041859619323918 or channel.id == 641041860294606915: # Para evitar falsos positivos y que se añadan personas que no corresponden
+                if not userid in users: # Para evitar errores de inexistencia
+                    users[userid] = 0
+                users[userid] += 1 # Para que conste que ha reaccionado
+                await log.log(channel, f"{user} reacted, {users.get(userid)}/2 done!") # Necesario en las primeras implementaciones
+
+                if users.get(userid) == 2: # Si ya ha reaccionado en los 2 canales
+                    del users[userid] # Restrinjo el diccionario a la gente que quede a medias para evitar lag en un futuro
+                    readme = discord.utils.get(guild.roles, name="Readme")
+                    todos = discord.utils.get(guild.roles, name="Todos")
+                    await user.remove_roles(readme) # Para que tengan acceso al resto del servidor
+                    await user.add_roles(todos)     # ^
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload): # Por si alguien elimina una de sus reacciones y no había mandado las 2
+        channel = self.client.get_channel(payload.channel_id)
+        if payload.emoji.name == "✅":
+            if channel.id == 641041859619323918 or channel.id == 641041860294606915:
+                if payload.user_id in users:
+                    users[payload.user_id] -=1
+                else:
+                    return
+            else:
+                return
+        else:
+            return
 
     @commands.command()
     async def private(self, ctx, *, name):
@@ -23,7 +60,10 @@ class Custom(commands.Cog):
             await new.set_permissions(ctx.author, read_messages=True, connect=True)
             await new.set_permissions(ctx.guild.default_role, read_messages=False, connect=False)
         else:
-            await ctx.author.send("Envía el mensaje en el canal correcto! :confused:")
+            try:
+                await ctx.author.send("Envía el mensaje en el canal correcto! :confused:")
+            except:
+                pass
         await ctx.message.delete(delay=1)
         await log.log(ctx, f"Private channel {name} created by {ctx.author}")
 

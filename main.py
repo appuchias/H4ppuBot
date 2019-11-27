@@ -1,6 +1,5 @@
 import os
 from itertools import cycle
-from keep_alive import keep_alive
 from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands, tasks
@@ -27,7 +26,7 @@ async def on_ready():
 @client.command(hidden=True)
 @commands.check(commands.is_owner())
 async def emload(ctx, extension):
-    client.load_extension(f'Cogs.{extension}')
+    client.load_extension(f'COG_{extension}')
     await ctx.send(f'Carga de emergencia de la extensión {extension}')
 
 @client.command()
@@ -84,19 +83,15 @@ async def logout(ctx):
 extensions = []
 for filename in os.listdir('./'):
     if str(filename).endswith('.py'):
-        if ("cog" in str(filename[:-3])):
+        if ("COG" in str(filename[:-3])):
             client.load_extension(filename[:-3])
             extensions.append(filename[:-3])
 print(f'{extensions} loaded!')
-
-
-#Tasks
-keep_alive()
 
 #Status
 @tasks.loop(seconds=3)
 async def change_status():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
 
-client.run(os.environ.get("Token_Bot"))
+client.run("NjQyMDc2MjM3MDg2MzI2ODM1.XdhgFw.upi3i5hCMzISXlFiXmMGVdLhO2A")
 #os.environ.get("Token_Bot")

@@ -1,10 +1,10 @@
-import os, pytz
+import os, pytz, log
 from itertools import cycle
 from datetime import datetime as dt  # dt.now(tz).strftime("%H:%M:%S %d/%m/%Y")
+from keep_alive import keep_alive
+
 import discord
 from discord.ext import commands, tasks
-from keep_alive import keep_alive
-import log
 
 prefix = "*"
 version = "0.3.5"
@@ -49,7 +49,7 @@ async def help(ctx):
     embed.add_field(name='***hello**', value='World!', inline=False)
     embed.add_field(name='***repite <veces> <msg>**', value='Repite lo que quieras hasta 10 veces.', inline=False)
     embed.add_field(name='***dado <n de caras>**', value='Tira un dado de cualquier número de caras.', inline=False)
-    embed.add_field(name='***moneda**', value='Lanza una moneda.', inline=False)
+    embed.add_field(name='***moneda [n]**', value='Lanza una moneda n veces (1 por defecto).', inline=False)
 
     embed.add_field(name='`~Custom~`', value='**Comandos de tareas muy concretas**', inline=False)
     embed.add_field(name='***private**', value='Crea un canal de voz privado para ti. (No spamear <#641041860294606915>) [Solo en <#642856275104759809>]', inline=False)

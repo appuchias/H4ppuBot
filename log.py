@@ -14,7 +14,7 @@ async def log(ctx, msg):
         return
 
     await channel.send(msg)
-    print(f"({local.strftime("%H:%M:%S %d/%m/%Y")})Log: {msg}")
+    print(f"Log: {msg}")
 
     with open("modlog.txt", "a") as f:
-        f.write(f"({local.strftime("%H:%M:%S %d/%m/%Y")})Log: {msg}\n")
+        f.write(f"Log: {msg}\n")

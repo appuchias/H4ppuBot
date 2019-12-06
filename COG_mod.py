@@ -1,6 +1,5 @@
 import asyncio
 import json
-from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands
 import log
@@ -27,7 +26,7 @@ class Mod(commands.Cog):
                 for cnt in range(0, 5):
                     await message.author.send("Nadie quiere oír eso...\n\t\t\t\t\t\t~Appu")
                     await asyncio.sleep(1)
-                    cnt = cnt
+                    cnt += 1
 
     #Commands
     #Bulk message delete

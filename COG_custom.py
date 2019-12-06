@@ -14,9 +14,10 @@ class Custom(commands.Cog):
             return
         if message.channel.id == 641041861800362014:
             ayuda = await self.client.fetch_channel(641041861800362014)
-            await ayuda.send(f"<@641041849997328384>, {message.author} ha pedido ayuda!\n{message.content}")
+            appu = message.guild.get_member(455321214525767680)
+            await ayuda.send(f"{appu.mention}, {message.author.name} ha pedido ayuda!\n{message.content}")
             await message.delete(delay=2)
-    
+
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         guild = await self.client.fetch_guild(payload.guild_id) # Defino para usarlas más tarde
@@ -44,7 +45,7 @@ class Custom(commands.Cog):
         if payload.emoji.name == "✅":
             if channel.id == 641041859619323918 or channel.id == 641041860294606915:
                 if payload.user_id in users:
-                    users[payload.user_id] -=1
+                    users[payload.user_id] -= 1
                 else:
                     return
             else:

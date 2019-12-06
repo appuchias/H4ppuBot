@@ -1,12 +1,14 @@
-import os
+import os, pytz
 from itertools import cycle
-from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
+from datetime import datetime as dt  # dt.now(tz).strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands, tasks
+from keep_alive import keep_alive
 import log
 
 prefix = "*"
-version = "0.3.4"
+version = "0.3.5"
+tz = pytz.timezone("Europe/Madrid")
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -16,7 +18,7 @@ async def on_ready():
     print('Connected as:')
     print('{}: {}'.format(client.user.name, client.user.id))
     print('Prefix: *')
-    print(dt.now().strftime("%H:%M:%S %d/%m/%Y"))
+    print(dt.now(tz).strftime("%H:%M:%S %d/%m/%Y"))
     print('--------------')
     change_status.start()
     game=discord.Game(name=f"*help | {client.user.name} | By Appu")
@@ -34,7 +36,7 @@ async def help(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
     embed.set_footer(
-        text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Bot con log\n{dt.now().strftime("%H:%M:%S %d/%m/%Y")}', icon_url=ctx.author.avatar_url)
+        text=f'(By: {ctx.author}) | | <> - Requerido, [] - Opcional | | Bot con log\n{dt.now(tz).strftime("%H:%M:%S %d/%m/%Y")}', icon_url=ctx.author.avatar_url)
 
     embed.add_field(name='`~General~`', value='**Comandos generales**', inline=False)
     embed.add_field(name='*help', value='Muestra este comando', inline=False)
@@ -68,9 +70,12 @@ async def help(ctx):
 
     #embed.add_field(name='*', value=None, inline=False)
     await ctx.send(embed=embed)
+    await log.log(ctx, f"Help from {ctx.author.name}")
+
+keep_alive()
 
 #Blinking current statuses
-activities = cycle([f"*help | Aún en desarrollo... | V{version}", f"*help | H4ppu Bot"])
+activities = cycle([f"*help | Aún en desarrollo... | V{version}", f"*help | H4ppu Bot | By Appu"])
 
 @client.command(hidden=True)
 @commands.check(commands.is_owner())
@@ -93,5 +98,5 @@ print(f'{extensions} loaded!')
 async def change_status():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
 
-client.run("NjQyMDc2MjM3MDg2MzI2ODM1.XdhgFw.upi3i5hCMzISXlFiXmMGVdLhO2A")
+client.run(os.environ.get("Token_Bot"))
 #os.environ.get("Token_Bot")

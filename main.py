@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands, tasks
 
 prefix = "*"
-version = "0.3.5"
+version = "0.4"
 tz = pytz.timezone("Europe/Madrid")
 
 client = commands.Bot(command_prefix=prefix)
@@ -31,7 +31,7 @@ async def emload(ctx, extension):
     client.load_extension(f'COG_{extension}')
     await ctx.send(f'Carga de emergencia de la extensión {extension}')
 
-@client.command()
+"""@client.command()
 async def help(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
@@ -70,7 +70,7 @@ async def help(ctx):
 
     #embed.add_field(name='*', value=None, inline=False)
     await ctx.send(embed=embed)
-    await log.log(ctx, f"Help from {ctx.author.name}")
+    await log.log(ctx, f"Help from {ctx.author.name}")"""
 
 keep_alive()
 

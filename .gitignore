@@ -4,8 +4,3 @@ __pycache__
 .pyc
 
 .vscode
-
-modlog.txt
-
-warns.json
-reports.json

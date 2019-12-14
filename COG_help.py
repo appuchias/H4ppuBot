@@ -42,6 +42,15 @@ class Help(commands.Cog):
         page4.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
         page4.add_field(name='***tmute <@member> <tiempo(minutos)>**', value="Mutea a alguien durante el tiempo que le digas", inline=False)
 
+        page5.add_field(name='`~Mod~`', value='**Comandos de moderación** [Solo Mods]', inline=False)
+        page5.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
+        page5.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
+        page5.add_field(name='***ban <@member> [motivo]**', value='Banea a alguien', inline=False)
+
+        page5.add_field(name='***warn <@member> [motivo]**', value="Avisa a alguien. Especifica motivo por favor", inline=False)
+        page5.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
+        page5.add_field(name='***tmute <@member> <tiempo(minutos)>**', value="Mutea a alguien durante el tiempo que le digas", inline=False)
+
         embeds = [page1, page2, page3, page4, page5]
 
         paginator = BotEmbedPaginator(ctx, embeds)

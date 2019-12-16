@@ -3,11 +3,8 @@ from discord.ext import commands, tasks
 from igramscraper.instagram import Instagram
 from twitter_scraper import get_tweets
 import praw
-import main
 
-
-
-version = {main.version}
+version = "0.4"
 reddit = praw.Reddit(client_id='08Zc5gTPSZ_fzg', client_secret="6xvK-ER8x59HLJyHtKjyRU653yA", user_agent=f"H4ppu bot V. {version}")
 
 class RrSs(commands.Cog):
@@ -48,7 +45,7 @@ class RrSs(commands.Cog):
                 return
             cnt += 1
 
-    @commands.command()
+    @commands.command(name="reddit")
     async def _reddit(self, ctx, query: str = "all"):
         subreddit = reddit.subreddit(query)
         if subreddit.over18 and not ctx.channel.is_nsfw():

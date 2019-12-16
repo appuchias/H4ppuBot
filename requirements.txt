@@ -5,3 +5,4 @@ os
 pytz
 igramscraper
 twitter_scraper
+praw

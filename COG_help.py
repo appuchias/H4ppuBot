@@ -2,8 +2,11 @@ import discord
 from discord.ext import commands
 from disputils import BotEmbedPaginator
 import log
+from datetime import datetime as dt
+import pytz
 
 color = 0x7289DA
+tz = pytz.timezone("Europe/Madrid")
 
 class Help(commands.Cog):
     def __init__(self, client):
@@ -11,11 +14,12 @@ class Help(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
-        page1 = discord.Embed(title="~General~", descrription='**Comandos generales**', color=color)
-        page2 = discord.Embed(title="~Chat~", description="**Comandos con respuestas en el chat directas**", color=color)
-        page3 = discord.Embed(title="~Custom~", description="**Comandos de tareas muy concretas**", color=color)
-        page4 = discord.Embed(title="~Extensions~", description="**Comandos de manejo de extensiones**", color=color)
-        page5 = discord.Embed(title="~Mod~", description="**Comandos de moderación** [Solo Mods]", color=color)
+        timestamp = dt.fromtimestamp(dt.timestamp(dt.now(tz=tz)))
+        page1 = discord.Embed(title="~General~", descrription='**Comandos generales**', color=color, timestamp=timestamp)
+        page2 = discord.Embed(title="~Chat~", description="**Comandos con respuestas en el chat directas**", color=color, timestamp=timestamp)
+        page3 = discord.Embed(title="~Custom~", description="**Comandos de tareas muy concretas**", color=color, timestamp=timestamp)
+        page4 = discord.Embed(title="~Extensions~", description="**Comandos de manejo de extensiones**", color=color, timestamp=timestamp)
+        page5 = discord.Embed(title="~Mod~", description="**Comandos de moderación** [Solo Mods]", color=color, timestamp=timestamp)
 
         page1.add_field(name='***help**', value='Muestra este comando', inline=False)
 
@@ -34,19 +38,9 @@ class Help(commands.Cog):
         page4.add_field(name="***unload <Extensión>**", value="Descarga la extensión que le digas [Solo Mods]", inline=False)
         page4.add_field(name="***reload <Extensión>**", value="Recarga la extensión que le digas [Solo Mods]", inline=False)
 
-        page4.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
-        page4.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
-        page4.add_field(name='***ban <@member> [motivo]**', value='Banea a alguien', inline=False)
-
-        page4.add_field(name='***warn <@member> [motivo]**', value="Avisa a alguien. Especifica motivo por favor", inline=False)
-        page4.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
-        page4.add_field(name='***tmute <@member> <tiempo(minutos)>**', value="Mutea a alguien durante el tiempo que le digas", inline=False)
-
-        page5.add_field(name='`~Mod~`', value='**Comandos de moderación** [Solo Mods]', inline=False)
         page5.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
         page5.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
         page5.add_field(name='***ban <@member> [motivo]**', value='Banea a alguien', inline=False)
-
         page5.add_field(name='***warn <@member> [motivo]**', value="Avisa a alguien. Especifica motivo por favor", inline=False)
         page5.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
         page5.add_field(name='***tmute <@member> <tiempo(minutos)>**', value="Mutea a alguien durante el tiempo que le digas", inline=False)

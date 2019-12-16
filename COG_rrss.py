@@ -2,6 +2,13 @@ import discord
 from discord.ext import commands, tasks
 from igramscraper.instagram import Instagram
 from twitter_scraper import get_tweets
+import praw
+import main
+
+
+
+version = {main.version}
+reddit = praw.Reddit(client_id='08Zc5gTPSZ_fzg', client_secret="6xvK-ER8x59HLJyHtKjyRU653yA", user_agent=f"H4ppu bot V. {version}")
 
 class InstaCog(commands.Cog):
     def __init__(self, client):
@@ -10,11 +17,11 @@ class InstaCog(commands.Cog):
 
     @commands.command()
     async def insta(self, ctx, perfil: str = None):
+        all_medias = self.ig.get_medias(perfil, 10)
         try:
-            all_medias = self.ig.get_medias(perfil, 10)
-        except Exception as error:
-            await ctx.send("Error: ", error)
-            return
+            x = all_medias[0]
+        except IndexError:
+            await ctx.send("La cuenta es privada! :confused:")
         for img in all_medias:
             if img.type == "image":
                 embed = discord.Embed(title=f"Última imagen de [{perfil}] en Instagram", description="By Mr. Appu™", url=img.image_high_resolution_url, color=0xf03c4d)
@@ -40,6 +47,21 @@ class InstaCog(commands.Cog):
                 await ctx.send(embed=embed)
                 return
             cnt += 1
+
+    @commands.command()
+    async def _reddit(self, ctx, query: str = "all"):
+    subreddit = reddit.subreddit(query)
+    if subreddit.over18 and not ctx.channel.is_nsfw():
+        await ctx.send("NSFW")
+        return
+    embed = discord.Embed(title=f"Últimos 10 posts del subreddit {query}", description="By Mr. Appu™", color=0xff4500, url=f"https://www.reddit.com/r/{subreddit.display_name}")
+    cnt = 1
+    for submission in subreddit.hot(limit=10):
+        embed.add_field(name=f"**Post** ***{cnt}*** **de 10**", value=f"{submission.title}\nLink: https://reddit.com{submission.permalink}", inline=False)
+        if cnt >= 10:
+            await ctx.send(embed=embed)
+            return
+        cnt += 1
 
 def setup(client):
     client.add_cog(InstaCog(client))

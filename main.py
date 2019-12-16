@@ -31,8 +31,8 @@ async def emload(ctx, extension):
     client.load_extension(f'COG_{extension}')
     await ctx.send(f'Carga de emergencia de la extensión {extension}')
 
-"""@client.command()
-async def help(ctx):
+@client.command()
+async def oldhelp(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
     embed.set_footer(
@@ -70,7 +70,7 @@ async def help(ctx):
 
     #embed.add_field(name='*', value=None, inline=False)
     await ctx.send(embed=embed)
-    await log.log(ctx, f"Help from {ctx.author.name}")"""
+    await log.log(ctx, f"Help from {ctx.author.name}")
 
 keep_alive()
 

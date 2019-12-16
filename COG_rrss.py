@@ -10,7 +10,7 @@ import main
 version = {main.version}
 reddit = praw.Reddit(client_id='08Zc5gTPSZ_fzg', client_secret="6xvK-ER8x59HLJyHtKjyRU653yA", user_agent=f"H4ppu bot V. {version}")
 
-class InstaCog(commands.Cog):
+class RrSs(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.ig = Instagram()
@@ -50,18 +50,18 @@ class InstaCog(commands.Cog):
 
     @commands.command()
     async def _reddit(self, ctx, query: str = "all"):
-    subreddit = reddit.subreddit(query)
-    if subreddit.over18 and not ctx.channel.is_nsfw():
-        await ctx.send("NSFW")
-        return
-    embed = discord.Embed(title=f"Últimos 10 posts del subreddit {query}", description="By Mr. Appu™", color=0xff4500, url=f"https://www.reddit.com/r/{subreddit.display_name}")
-    cnt = 1
-    for submission in subreddit.hot(limit=10):
-        embed.add_field(name=f"**Post** ***{cnt}*** **de 10**", value=f"{submission.title}\nLink: https://reddit.com{submission.permalink}", inline=False)
-        if cnt >= 10:
-            await ctx.send(embed=embed)
+        subreddit = reddit.subreddit(query)
+        if subreddit.over18 and not ctx.channel.is_nsfw():
+            await ctx.send("NSFW")
             return
-        cnt += 1
+        embed = discord.Embed(title=f"Últimos 10 posts del subreddit {query}", description="By Mr. Appu™", color=0xff4500, url=f"https://www.reddit.com/r/{subreddit.display_name}")
+        cnt = 1
+        for submission in subreddit.hot(limit=10):
+            embed.add_field(name=f"**Post** ***{cnt}*** **de 10**", value=f"{submission.title}\nLink: https://reddit.com{submission.permalink}", inline=False)
+            if cnt >= 10:
+                await ctx.send(embed=embed)
+                return
+            cnt += 1
 
 def setup(client):
-    client.add_cog(InstaCog(client))
+    client.add_cog(RrSs(client))

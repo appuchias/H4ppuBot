@@ -49,7 +49,7 @@ class RrSs(commands.Cog):
     async def _reddit(self, ctx, query: str = "all"):
         subreddit = reddit.subreddit(query)
         if subreddit.over18 and not ctx.channel.is_nsfw():
-            await ctx.send("NSFW")
+            await ctx.send("Contenido NSFW\nPrueba en un canal con NSFW activado!")
             return
         embed = discord.Embed(title=f"Últimos 10 posts del subreddit {query}", description="By Mr. Appu™", color=0xff4500, url=f"https://www.reddit.com/r/{subreddit.display_name}")
         cnt = 1

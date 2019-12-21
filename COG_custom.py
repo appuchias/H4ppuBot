@@ -20,9 +20,9 @@ class Custom(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        guild = await self.client.fetch_guild(payload.guild_id) # Defino para usarlas más tarde
         channel = self.client.get_channel(payload.channel_id)
-        user = await guild.fetch_member(payload.user_id)
+        msg = await channel.fetch_message(payload.message_id)
+        notif = discord.utils.get(msg.guild.roles, name="Notif")
         userid = payload.user_id
 
         if payload.emoji.name == "✅": # El emoji de la reacción
@@ -30,28 +30,30 @@ class Custom(commands.Cog):
                 if not userid in users: # Para evitar errores de inexistencia
                     users[userid] = 0
                 users[userid] += 1 # Para que conste que ha reaccionado
-                await log.log(channel, f"{user} reacted, {users.get(userid)}/2 done!") # Necesario en las primeras implementaciones
+                await log.log(channel, f"{msg.author} reacted, {users.get(userid)}/2 done!") # Necesario en las primeras implementaciones
 
                 if users.get(userid) == 2: # Si ya ha reaccionado en los 2 canales
                     del users[userid] # Restrinjo el diccionario a la gente que quede a medias para evitar lag en un futuro
-                    readme = discord.utils.get(guild.roles, name="Readme")
-                    todos = discord.utils.get(guild.roles, name="Todos")
-                    await user.remove_roles(readme) # Para que tengan acceso al resto del servidor
-                    await user.add_roles(todos)     # ^
+                    readme = discord.utils.get(msg.guild.roles, name="Readme")
+                    todos = discord.utils.get(msg.guild.roles, name="Todos")
+                    await msg.author.remove_roles(readme) # Para que tengan acceso al resto del servidor
+                    await msg.author.add_roles(todos)     # ^
+
+        elif payload.emoji.id == 657718546511691797 and msg.id == 651910183752171567:
+            await msg.author.add_roles(notif)
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload): # Por si alguien elimina una de sus reacciones y no había mandado las 2
         channel = self.client.get_channel(payload.channel_id)
+        msg = await channel.fetch_message(payload.message_id)
+        notif = discord.utils.get(msg.guild.roles, name="Notif")
         if payload.emoji.name == "✅":
             if channel.id == 641041859619323918 or channel.id == 641041860294606915:
                 if payload.user_id in users:
                     users[payload.user_id] -= 1
-                else:
-                    return
-            else:
-                return
-        else:
-            return
+
+        elif payload.emoji.id == 657718546511691797 and msg.id == 651910183752171567:
+            await msg.author.remove_roles(notif)
 
     @commands.command()
     async def private(self, ctx, *, name):

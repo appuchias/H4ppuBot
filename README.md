@@ -1,3 +1,4 @@
+[![Run on Repl.it](https://repl.it/badge/github/appuchias/H4ppuBot)](https://repl.it/github/appuchias/H4ppuBot)
 # H4ppu Bot
 ## Este bot está única y exclusivamente diseñado para el servidor de H4ppu Community
 >El código **no está optimizado ni para una lectura comprensiva ni para una adaptación sencilla** a otro contexto en Discord.
@@ -7,6 +8,7 @@ El bot está dividido en:
 	* main.py
 	* .env
 	* modlog.txt
+	* reports.json
 	* warns.json
 	* LICENSE
 	* README.md

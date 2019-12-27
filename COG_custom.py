@@ -17,6 +17,8 @@ class Custom(commands.Cog):
             appu = message.guild.get_member(455321214525767680)
             await ayuda.send(f"{appu.mention}, {message.author.name} ha pedido ayuda!\n{message.content}")
             await message.delete(delay=2)
+        if "hello" in message.content[:5]:
+            await message.channel.send("world! :earth_africa:")
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):

@@ -10,6 +10,7 @@ class Mod(commands.Cog):
         self.client = client
         self.client.log = self.log
 
+    #Events
     #When a message is sent
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -61,7 +62,6 @@ class Mod(commands.Cog):
     # async def unban(self, ctx, *, member):
     #     banned_users = await ctx.guild.bans()
     #     name, discr = member.split('#')
-
     #     for ban_entry in banned_users:
     #         user = ban_entry.user
     #         if(user.name, user.discriminator) == (name, discr):
@@ -77,15 +77,16 @@ class Mod(commands.Cog):
         await user.add_roles(muted_role)
         await log.log(ctx, f"{user.name} got muted!")
 
-    @commands.command()
-    @commands.has_role("Mods")
-    async def tmute(self, ctx, user: discord.Member, n:int):
-        muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
-        await user.add_roles(muted_role)
-        await log.log(ctx, f"{user.name} got muted for {n}m!")
-        await asyncio.sleep(n*60)
-        await user.remove_roles(muted_role)
+    # @commands.command()
+    # @commands.has_role("Mods")
+    # async def tmute(self, ctx, user: discord.Member, n:int):
+    #     muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
+    #     await user.add_roles(muted_role)
+    #     await log.log(ctx, f"{user.name} got muted for {n}m!")
+    #     await asyncio.sleep(n*60)
+    #     await user.remove_roles(muted_role)
 
+    #To report members for more irrelevant things than a warn
     @commands.command()
     @commands.has_role("Mods")
     async def report(self, ctx, who : discord.Member, *, reason = "no reason"):
@@ -115,6 +116,7 @@ class Mod(commands.Cog):
         await log.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
         await ctx.message.delete(delay=2)
 
+    #Warn group
     @commands.group()
     async def warn(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -135,6 +137,7 @@ class Mod(commands.Cog):
             warns = json.load(f)
         if channel != None:
             await channel.send(f"{ctx.author.mention} ha disputado su último warn, de un total de [{warns[str(ctx.author.id)]}] con el motivo de [{reason}]")
+            await ctx.message.delete(delay=2)
 
     #Log
     async def log(self, ctx, msg):

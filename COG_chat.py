@@ -8,9 +8,9 @@ class Chat(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def suma(self, ctx, *, args):
+    async def suma(self, ctx, args: Greedy[int]):
         output=0
-        for n in args.split(" "):
+        for n in args:
             output+=int(n)
             print(output)
         await ctx.send(output)

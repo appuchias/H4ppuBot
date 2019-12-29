@@ -72,15 +72,6 @@ class Mod(commands.Cog):
 
     @commands.command()
     @commands.has_role("Mods")
-    async def warn(self, ctx, user:discord.Member, *, reason = "None"):
-        await self.warning(ctx, user, reason)
-        await log.log(ctx, f"{ctx.author} warned {user.name}!")
-        await ctx.send(f"{user.name} fue alertado por {ctx.author}")
-        await ctx.message.delete(delay=2)
-
-
-    @commands.command()
-    @commands.has_role("Mods")
     async def mute(self, ctx, user: discord.Member):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
@@ -124,6 +115,27 @@ class Mod(commands.Cog):
         await log.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
         await ctx.message.delete(delay=2)
 
+    @commands.group()
+    async def warn(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send("Este comando necesita parámetros extra!")
+    
+    @warn.command()
+    @commands.has_permissions()
+    async def user(self, ctx, user: discord.Member, *, reason: str= None):
+        await self.warning(ctx, user, reason)
+        await log.log(ctx, f"{ctx.author} warned {user.name}!")
+        await ctx.send(f"{user.name} fue alertado por {ctx.author}")
+        await ctx.message.delete(delay=2)
+    
+    @warn.command()
+    async def claim(self, ctx, *, reason: str):
+        channel = discord.utils.get(ctx.guild.channels, name="disputas")
+        with open("warns.json", "r") as f:
+            warns = json.load(f)
+        if channel != None:
+            await channel.send(f"{ctx.author.mention} ha disputado su último warn, de un total de [{warns[str(ctx.author.id)]}] con el motivo de [{reason}]")
+
     #Log
     async def log(self, ctx, msg):
         channel = discord.utils.get(ctx.guild.text_channels, name="log")
@@ -148,7 +160,7 @@ class Mod(commands.Cog):
             warns[str(user.id)] = 0
         warns[str(user.id)] += 1
 
-        await user.send(f"Fuiste avisado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\tCon 5 avisos: Muteo de 12h.\tCon 10 avisos: Expulsión.\tCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
+        await user.send(f"Fuiste avisado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\nCon 5 avisos: Muteo de 12h.\nCon 10 avisos: Expulsión.\nCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
         with open("warns.json", "w") as f:
             json.dump(warns, f, indent=4)
 

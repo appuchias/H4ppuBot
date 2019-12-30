@@ -25,8 +25,7 @@ class RrSs(commands.Cog):
                 embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
                 embed.set_image(url=img.image_high_resolution_url)
                 embed.add_field(name="Pie de foto:", value=img.caption, inline=True)
-                embed.add_field(name="Likes:", value=img.likes_count, inline=True)
-                embed.add_field(name="Comentarios:", value=img.comments_count, inline=True)
+                embed.add_field(name="Info:", value=f"{img.likes_count} :heart:\n{img.comments_count} :speech_balloon:", inline=True)
                 await ctx.send(embed=embed)
                 return
 

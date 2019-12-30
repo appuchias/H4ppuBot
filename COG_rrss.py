@@ -14,20 +14,24 @@ class RrSs(commands.Cog):
 
     @commands.command()
     async def insta(self, ctx, perfil: str = None):
-        all_medias = self.ig.get_medias(perfil, 10)
-        try:
-            x = all_medias[0]
-        except IndexError:
-            await ctx.send("La cuenta es privada! :confused:")
-        for img in all_medias:
-            if img.type == "image":
-                embed = discord.Embed(title=f"Última imagen de [{perfil}] en Instagram", description="By Mr. Appu™", url=img.image_high_resolution_url, color=0xf03c4d)
-                embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-                embed.set_image(url=img.image_high_resolution_url)
-                embed.add_field(name="Pie de foto:", value=img.caption, inline=True)
-                embed.add_field(name="Info:", value=f"{img.likes_count} :heart:\n{img.comments_count} :speech_balloon:", inline=True)
-                await ctx.send(embed=embed)
-                return
+        if perfil is not None:
+            all_medias = self.ig.get_medias(perfil, 10)
+            try:
+                x = all_medias[0]
+            except IndexError:
+                await ctx.send("La cuenta es privada! :confused:")
+            for img in all_medias:
+                if img.type == "image":
+                    embed = discord.Embed(title=f"Última imagen de [{perfil}] en Instagram", description="By Mr. Appu™", url=f"https://instagram.com/{perfil}", color=0xf03c4d)
+                    embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"Foto de máxima calidad [aquí]({img.image_high_resolution_url})")
+                    embed.set_image(url=img.image_high_resolution_url)
+                    embed.add_field(name="Pie de foto:", value=img.caption, inline=True)
+                    embed.add_field(name="Info:", value=f"{img.likes_count} :heart:\n{img.comments_count} :speech_balloon:", inline=True)
+                    await ctx.send(embed=embed)
+                    return
+        else:
+            await ctx.send("Tienes que especificar un perfil!")
 
     @commands.command()
     async def twitter(self, ctx, user: str = None):

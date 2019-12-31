@@ -20,7 +20,7 @@ class Help(commands.Cog):
             page2 = discord.Embed(title="~Chat~", description="**Comandos con respuestas en el chat directas**", color=color, timestamp=timestamp)
             page3 = discord.Embed(title="~Custom~", description="**Comandos de tareas muy concretas**", color=color, timestamp=timestamp)
             page4 = discord.Embed(title="~Extensions~", description="**Comandos de manejo de extensiones**", color=color, timestamp=timestamp)
-            page5
+            page5 = discord.Embed(title="~RRSS~", description="**Comandos de redes sociales**", color=color, timestamp=timestamp)
             page6 = discord.Embed(title="~Mod~", description="**Comandos de moderación** [Solo Mods]", color=color, timestamp=timestamp)
 
             page1.add_field(name='***help**', value='Muestra este comando', inline=False)
@@ -40,7 +40,7 @@ class Help(commands.Cog):
             page4.add_field(name="***unload <Extensión>**", value="Descarga la extensión que le digas [Solo Mods]", inline=False)
             page4.add_field(name="***reload <Extensión>**", value="Recarga la extensión que le digas [Solo Mods]", inline=False)
 
-            page5.add_field(name="***insta <cuenta>**", value="Muestra la última foto de una cuenta, junto a sus likes y comentarios", inline=False)
+            page5.add_field(name="***insta <cuenta>**", value="Muestra la última foto de una cuenta pública, junto a sus likes y comentarios", inline=False)
             page5.add_field(name="***twitter <cuenta>**", value="Responde con los 10 últimos tweets de una cuenta", inline=False)
             page5.add_field(name="***reddit <subreddit>**", value="Manda un mensaje con los 10 últimos posts del subreddit", inline=False)
 

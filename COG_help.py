@@ -20,7 +20,8 @@ class Help(commands.Cog):
             page2 = discord.Embed(title="~Chat~", description="**Comandos con respuestas en el chat directas**", color=color, timestamp=timestamp)
             page3 = discord.Embed(title="~Custom~", description="**Comandos de tareas muy concretas**", color=color, timestamp=timestamp)
             page4 = discord.Embed(title="~Extensions~", description="**Comandos de manejo de extensiones**", color=color, timestamp=timestamp)
-            page5 = discord.Embed(title="~Mod~", description="**Comandos de moderación** [Solo Mods]", color=color, timestamp=timestamp)
+            page5
+            page6 = discord.Embed(title="~Mod~", description="**Comandos de moderación** [Solo Mods]", color=color, timestamp=timestamp)
 
             page1.add_field(name='***help**', value='Muestra este comando', inline=False)
 
@@ -33,19 +34,23 @@ class Help(commands.Cog):
             page2.add_field(name='***dado <n de caras>**', value='Tira un dado de cualquier número de caras.', inline=False)
             page2.add_field(name='***moneda [n]**', value='Lanza una moneda n veces (1 por defecto).', inline=False)
 
-            page3.add_field(name='***private**', value='Crea un canal de voz privado para ti. (No spamear <#641041860294606915>) [Solo en <#642856275104759809>]', inline=False)
+            page3.add_field(name='***private**', value='Crea un canal de voz privado para ti. (No spamear, leed <#641041860294606915>) [Solo permitido en <#642856275104759809>]', inline=False)
 
             page4.add_field(name="***load <Extensión>**", value="Carga la extensión que le digas [Solo Mods]", inline=False)
             page4.add_field(name="***unload <Extensión>**", value="Descarga la extensión que le digas [Solo Mods]", inline=False)
             page4.add_field(name="***reload <Extensión>**", value="Recarga la extensión que le digas [Solo Mods]", inline=False)
 
-            page5.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
-            page5.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
-            page5.add_field(name='***ban <@member> [motivo]**', value='Banea a alguien', inline=False)
-            page5.add_field(name='***warn**', value="Inútil sin subcomando mencionado `*help warn` para más info", inline=False)
-            page5.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
+            page5.add_field(name="***insta <cuenta>**", value="Muestra la última foto de una cuenta, junto a sus likes y comentarios", inline=False)
+            page5.add_field(name="***twitter <cuenta>**", value="Responde con los 10 últimos tweets de una cuenta", inline=False)
+            page5.add_field(name="***reddit <subreddit>**", value="Manda un mensaje con los 10 últimos posts del subreddit", inline=False)
 
-            embeds = [page1, page2, page3, page4, page5]
+            page6.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
+            page6.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
+            page6.add_field(name='***ban <@member> [motivo]**', value='Banea a alguien', inline=False)
+            page6.add_field(name='***warn <subcomando>**', value="Inútil sin subcomando mencionado `*help warn` para más info", inline=False)
+            page6.add_field(name='***mute <@member>**', value="Mutea a alguien", inline=False)
+
+            embeds = [page1, page2, page3, page4, page5, page6]
 
             paginator = BotEmbedPaginator(ctx, embeds)
             await paginator.run()

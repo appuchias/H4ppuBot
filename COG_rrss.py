@@ -24,10 +24,10 @@ class RrSs(commands.Cog):
                 if img.type == "image":
                     embed = discord.Embed(title=f"Última imagen de [{perfil}] en Instagram", description="By Mr. Appu™", url=f"https://instagram.com/{perfil}", color=0xf03c4d)
                     embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-                    embed.set_footer(text=f"Foto de máxima calidad [aquí]({img.image_high_resolution_url})")
                     embed.set_image(url=img.image_high_resolution_url)
                     embed.add_field(name="Pie de foto:", value=img.caption, inline=True)
                     embed.add_field(name="Info:", value=f"{img.likes_count} :heart:\n{img.comments_count} :speech_balloon:", inline=True)
+                    embed.add_field(name="Link:", value=f"Foto de máxima calidad [aquí]({img.image_high_resolution_url} \"Foto de máxima calidad\")", inline=False)
                     await ctx.send(embed=embed)
                     return
         else:

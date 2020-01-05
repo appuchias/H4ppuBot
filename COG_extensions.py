@@ -12,7 +12,7 @@ class Extensions(commands.Cog):
     #Commands
     #Load an extension
     @commands.command()
-    @commands.has_role("Mods")
+    @commands.has_permissions(administrator=True)
     async def load(self, ctx, extension):
         self.client.load_extension(f'COG_{extension}')
         await ctx.send(f'Extensión {extension} cargada!')
@@ -20,7 +20,7 @@ class Extensions(commands.Cog):
 
     #Unload an extension
     @commands.command()
-    @commands.has_role("Mods")
+    @commands.has_permissions(administrator=True)
     async def unload(self, ctx, extension):
         self.client.unload_extension(f'COG_{extension}')
         await ctx.send(f'Extensión {extension} descargada!')
@@ -28,7 +28,7 @@ class Extensions(commands.Cog):
 
     #Reload an extension
     @commands.command()
-    @commands.has_role("Mods")
+    @commands.has_permissions(administrator=True)
     async def reload(self, ctx, extension):
         self.client.unload_extension(f'COG_{extension}')
         await ctx.send(f'Extension {extension} descargada!')

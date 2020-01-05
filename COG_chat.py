@@ -51,18 +51,13 @@ class Chat(commands.Cog):
             output += word
             output += ' '
 
-        embed = discord.Embed(
-        title = f"**{self.client.user.name}**",
-        description = 'Repite "{}" {} veces'.format(output, veces),
-        colour = 0x7289DA
-        )
-
         if veces <= 10:
+            embed = discord.Embed(title=f"**{self.client.user.name}**", description='Repite "{}" {} veces'.format(output, veces), colour=0x7289DA)
             for i in range(veces):
-                embed.add_field(name=output, value=f'Repetición {i} de {veces}', inline=False)
+                embed.add_field(name=f'Repetición {i} de {veces}', value=output, inline=False)
+            await ctx.send(embed=embed)
         else:
             await ctx.send('Me da bastante pereza tantas veces, es muy repetitivo. Me empiezo a cansar a partir de 10')
-            await ctx.send(embed=embed)
 
     @commands.command()
     async def dado(self, ctx, n):
@@ -72,16 +67,16 @@ class Chat(commands.Cog):
 
     @commands.command()
     async def moneda(self, ctx, repetitions:int=1):
-        embed = discord.Embed(title="", description="", colour=0xf1c40f)
         if repetitions > 0 and repetitions <= 20:
-            for cnt in range(1, repetitions+1):
+            embed = discord.Embed(title="Moneda", description=f"{repetitions} repeticiones", colour=0xf1c40f)
+            for cnt in range(repetitions):
                 n = random.randint(0, 81)
                 if n < 40:
-                    embed.add_field(name=f"{cnt}/{repetitions}", value="CARA! :adult:")
+                    embed.add_field(name=f"{cnt+1}/{repetitions}", value="CARA! :adult:")
                 elif n < 81:
-                    embed.add_field(name=f"{cnt}/{repetitions}", value="CRUZ! :x:")
+                    embed.add_field(name=f"{cnt+1}/{repetitions}", value="CRUZ! :x:")
                 else:
-                    embed.add_field(name=f"{cnt}/{repetitions}", value="CANTOOOOO!!! :tada::tada:")
+                    embed.add_field(name=f"{cnt+1}/{repetitions}", value="CANTOOOOO!!! :tada::tada:")
             await ctx.send(embed=embed)
         else:
             await ctx.send(f"Por favor, no te pases, {repetitions} está por encima de 20, mi máximo de repeticiones del comando! :warning:")

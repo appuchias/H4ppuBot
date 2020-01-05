@@ -32,6 +32,7 @@ async def emload(ctx, extension):
     await ctx.send(f'Carga de emergencia de la extensión {extension}')
 
 @client.command()
+@client.has_permissions(administrator=True)
 async def oldhelp(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)

@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands, tasks
 
 prefix = "*"
-version = "0.4"
+version = "0.5"
 tz = pytz.timezone("Europe/Madrid")
 
 client = commands.Bot(command_prefix=prefix)

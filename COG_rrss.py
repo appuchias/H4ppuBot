@@ -4,7 +4,7 @@ from igramscraper.instagram import Instagram
 from twitter_scraper import get_tweets
 import praw
 
-version = "0.5"
+version = "0.4"
 reddit = praw.Reddit(client_id='08Zc5gTPSZ_fzg', client_secret="6xvK-ER8x59HLJyHtKjyRU653yA", user_agent=f"H4ppu bot V. {version}")
 
 class RrSs(commands.Cog):

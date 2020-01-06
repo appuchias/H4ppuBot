@@ -71,6 +71,15 @@ class Custom(commands.Cog):
                 pass
         await ctx.message.delete(delay=1)
         await log.log(ctx, f"Private channel {name} created by {ctx.author}")
+    
+    @commands.command()
+    @commands.is_owner()
+    async def notify(self, ctx, *, msg):
+        await ctx.message.delete(delay=2)
+        notif = discord.utils.get(ctx.guild.roles, name="Notif")
+        actualizaciones_bot = discord.utils.get(ctx.guild.channels, name="actualizaciones-bot")
+        await actualizaciones_bot.send(f"{notif.mention}\n{msg}")
+        await ctx.send("Message sent!")
 
     #Log
     async def log(self, ctx, msg):

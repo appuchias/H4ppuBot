@@ -1,3 +1,8 @@
-discord.py==1.2.3
+discord.py==1.2.5
 asyncio
 flask
+os
+pytz
+igramscraper
+twitter_scraper
+praw

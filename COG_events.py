@@ -5,7 +5,6 @@ import log
 
 #Bot prefix
 prefix = '*'
-users = {}
 
 class Events(commands.Cog):
     def __init__(self, client):
@@ -19,43 +18,15 @@ class Events(commands.Cog):
         else:
             await log.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
 
-    #When a reaction is added to a message
-    @commands.Cog.listener()
-    async def on_reaction_add(self, reaction, user):
-        await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} añadida al mensaje "{reaction.message.content}" por {user}')
+    # #When a reaction is added to a message
+    # @commands.Cog.listener()
+    # async def on_reaction_add(self, reaction, user):
+    #     await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} añadida al mensaje "{reaction.message.content}" por {user}')
 
-    #When a reaction is removed from a message
-    @commands.Cog.listener()
-    async def on_reaction_remove(self, reaction, user):
-        await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} eliminada del mensaje "{reaction.message.content}" por {user}')
-
-    @commands.Cog.listener()
-    async def on_raw_reaction_add(self, payload):
-        guild = await self.client.fetch_guild(payload.guild_id)
-        channel = self.client.get_channel(payload.channel_id)
-        user = await guild.fetch_member(payload.user_id)
-
-        if payload.emoji.name == "✅":
-            if channel.id == 641041859619323918 or channel.id == 641041860294606915:
-                if payload.user_id in users:
-                    users[payload.user_id] += 1
-                else:
-                    users[payload.user_id] = 1
-                await log.log(channel, f"{user} reacted, {users.get(payload.user_id)}/2 done!")
-        if users.get(payload.user_id) == 2:
-            del users[payload.user_id]
-            readme = discord.utils.get(guild.roles, name="Readme")
-            todos = discord.utils.get(guild.roles, name="Todos")
-            await user.remove_roles(readme)
-            await user.add_roles(todos)
-
-    @commands.Cog.listener()
-    async def on_raw_reaction_remove(self, payload):
-        channel = self.client.get_channel(payload.channel_id)
-        if payload.emoji.name == "✅":
-            if channel.id == 641041859619323918 or channel.id == 641041860294606915:
-                if payload.user_id in users:
-                    users[payload.user_id] -=1
+    # #When a reaction is removed from a message
+    # @commands.Cog.listener()
+    # async def on_reaction_remove(self, reaction, user):
+    #     await log.log(reaction.message.channel, f'(#{reaction.message.channel}): Reacción {str(reaction)} eliminada del mensaje "{reaction.message.content}" por {user}')
 
     @commands.Cog.listener()
     async def on_member_join(self, member):

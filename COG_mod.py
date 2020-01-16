@@ -1,6 +1,5 @@
 import asyncio
 import json
-from datetime import datetime as dt  # dt.now().strftime("%H:%M:%S %d/%m/%Y")
 import discord
 from discord.ext import commands
 import log
@@ -11,6 +10,7 @@ class Mod(commands.Cog):
         self.client = client
         self.client.log = self.log
 
+    #Events
     #When a message is sent
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -22,12 +22,6 @@ class Mod(commands.Cog):
             if word in message.content.lower():
                 await self.warning(user, user, f"Used a bad word ({word})")
                 await log.log(user, f"{user} used a bad word ({word})")
-        if "cucaracha" in message.content.lower():
-            if message.author.id == 395672084451295242:
-                for cnt in range(0, 5):
-                    await message.author.send("Nadie quiere oír eso...\n\t\t\t\t\t\t~Appu")
-                    await asyncio.sleep(1)
-                    cnt = cnt
 
     #Commands
     #Bulk message delete
@@ -62,29 +56,19 @@ class Mod(commands.Cog):
         await log.log(ctx, f'{member} was banned by {ctx.message.author}')
         await ctx.message.delete(delay=2)
 
-    #Unban someone
-    @commands.command()
-    @commands.has_role("Mods")
-    async def unban(self, ctx, *, member):
-        banned_users = await ctx.guild.bans()
-        name, discr = member.split('#')
-
-        for ban_entry in banned_users:
-            user = ban_entry.user
-            if(user.name, user.discriminator) == (name, discr):
-                await ctx.guild.unban(user)
-                await log.log(ctx, f'{user} was unbanned by {ctx.message.author}')
-        await ctx.send(f'{member} desbaneado!')
-        await ctx.message.delete(delay=2)
-
-    @commands.command()
-    @commands.has_role("Mods")
-    async def warn(self, ctx, user:discord.Member, *, reason = "None"):
-        await self.warning(ctx, user, reason)
-        await log.log(ctx, f"{ctx.author} warned {user.name}!")
-        await ctx.send(f"{user.name} fue alertado por {ctx.author}")
-        await ctx.message.delete(delay=2)
-
+    # #Unban someone
+    # @commands.command()
+    # @commands.has_role("Mods")
+    # async def unban(self, ctx, *, member):
+    #     banned_users = await ctx.guild.bans()
+    #     name, discr = member.split('#')
+    #     for ban_entry in banned_users:
+    #         user = ban_entry.user
+    #         if(user.name, user.discriminator) == (name, discr):
+    #             await ctx.guild.unban(user)
+    #             await log.log(ctx, f'{user} was unbanned by {ctx.message.author}')
+    #     await ctx.send(f'{member} desbaneado!')
+    #     await ctx.message.delete(delay=2)
 
     @commands.command()
     @commands.has_role("Mods")
@@ -93,15 +77,16 @@ class Mod(commands.Cog):
         await user.add_roles(muted_role)
         await log.log(ctx, f"{user.name} got muted!")
 
-    @commands.command()
-    @commands.has_role("Mods")
-    async def tmute(self, ctx, user: discord.Member, n:int):
-        muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
-        await user.add_roles(muted_role)
-        await log.log(ctx, f"{user.name} got muted for {n}m!")
-        await asyncio.sleep(n*60)
-        await user.remove_roles(muted_role)
+    # @commands.command()
+    # @commands.has_role("Mods")
+    # async def tmute(self, ctx, user: discord.Member, n:int):
+    #     muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
+    #     await user.add_roles(muted_role)
+    #     await log.log(ctx, f"{user.name} got muted for {n}m!")
+    #     await asyncio.sleep(n*60)
+    #     await user.remove_roles(muted_role)
 
+    #To report members for more irrelevant things than a warn
     @commands.command()
     @commands.has_role("Mods")
     async def report(self, ctx, who : discord.Member, *, reason = "no reason"):
@@ -131,6 +116,29 @@ class Mod(commands.Cog):
         await log.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
         await ctx.message.delete(delay=2)
 
+    #Warn group
+    @commands.group()
+    async def warn(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send("Este comando necesita parámetros extra!")
+    
+    @warn.command()
+    @commands.has_permissions()
+    async def user(self, ctx, user: discord.Member, *, reason: str= None):
+        await self.warning(ctx, user, reason)
+        await log.log(ctx, f"{ctx.author} warned {user.name}!")
+        await ctx.send(f"{user.name} fue alertado por {ctx.author}")
+        await ctx.message.delete(delay=2)
+    
+    @warn.command()
+    async def claim(self, ctx, *, reason: str):
+        channel = discord.utils.get(ctx.guild.channels, name="disputas")
+        with open("warns.json", "r") as f:
+            warns = json.load(f)
+        if channel != None:
+            await channel.send(f"{ctx.author.mention} ha disputado su último warn, de un total de [{warns[str(ctx.author.id)]}] con el motivo de [{reason}]")
+            await ctx.message.delete(delay=2)
+
     #Log
     async def log(self, ctx, msg):
         channel = discord.utils.get(ctx.guild.text_channels, name="log")
@@ -155,7 +163,7 @@ class Mod(commands.Cog):
             warns[str(user.id)] = 0
         warns[str(user.id)] += 1
 
-        await user.send(f"Fuiste avisado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\tCon 5 avisos: Muteo de 12h.\tCon 10 avisos: Expulsión.\tCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
+        await user.send(f"Fuiste avisado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\nCon 5 avisos: Muteo de 12h.\nCon 10 avisos: Expulsión.\nCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
         with open("warns.json", "w") as f:
             json.dump(warns, f, indent=4)
 

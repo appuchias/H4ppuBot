@@ -17,7 +17,7 @@ client.remove_command('help')
 async def on_ready():
     print('Connected as:')
     print('{}: {}'.format(client.user.name, client.user.id))
-    print('Prefix: *')
+    print(f'Prefix: {prefix}')
     print(dt.now(tz).strftime("%H:%M:%S %d/%m/%Y"))
     print('--------------')
     change_status.start()

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands, tasks
-import asyncio
+import asyncio, typing
 
 import urllib.request
 from bs4 import BeautifulSoup
@@ -10,7 +10,7 @@ class Yt(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def yt(self, ctx, *, busqueda):
+    async def yt(self, ctx, internal: typing.Optional(bool)= False, *, busqueda):
         results = []
         embed = discord.Embed(title=f"5 primeros resultados de {busqueda} en YouTube", description="By Mr. Appu™", color=discord.Colour.red())
         query = urllib.parse.quote(busqueda)
@@ -29,3 +29,4 @@ class Yt(commands.Cog):
 
 def setup(client):
     client.add_cog(Yt(client))
+a

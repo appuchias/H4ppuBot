@@ -14,7 +14,7 @@ class Extensions(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def load(self, ctx, extension):
-        self.client.load_extension(f'COG_{extension}')
+        self.client.load_extension(f'cogs.COG_{extension}')
         await ctx.send(f'Extensión {extension} cargada!')
         await log.log(ctx, f'Extension {extension} loaded!')
 
@@ -22,7 +22,7 @@ class Extensions(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def unload(self, ctx, extension):
-        self.client.unload_extension(f'COG_{extension}')
+        self.client.unload_extension(f'cogs.COG_{extension}')
         await ctx.send(f'Extensión {extension} descargada!')
         await log.log(ctx, f'Extension {extension} unloaded!')
 
@@ -30,11 +30,11 @@ class Extensions(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def reload(self, ctx, extension):
-        self.client.unload_extension(f'COG_{extension}')
+        self.client.unload_extension(f'cogs.COG_{extension}')
         await ctx.send(f'Extension {extension} descargada!')
         await ctx.send('Recargando en breve...')
         await asyncio.sleep(1)
-        self.client.load_extension(f'COG_{extension}')
+        self.client.load_extension(f'cogs.COG_{extension}')
         await ctx.send(f'Extensión {extension} recargada!')
         await log.log(ctx, f'Extension {extension} reloaded!')
 

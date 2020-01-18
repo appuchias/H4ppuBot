@@ -10,7 +10,7 @@ class Yt(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def yt(self, ctx, internal: typing.Optional(bool)= False, *, busqueda):
+    async def yt(self, ctx, internal: typing.Optional[bool]= False, *, busqueda):
         results = []
         embed = discord.Embed(title=f"5 primeros resultados de {busqueda} en YouTube", description="By Mr. Appu™", color=discord.Colour.red())
         query = urllib.parse.quote(busqueda)
@@ -24,9 +24,8 @@ class Yt(commands.Cog):
             if not "user" in url:
                 results.append(url)
                 embed.add_field(name=vid["title"], value=url, inline=False)
-        
+
         await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(Yt(client))
-a

@@ -94,7 +94,7 @@ class Mod(commands.Cog):
         channel = discord.utils.get(ctx.guild.channels, name="reports")
         appu = discord.utils.get(ctx.guild.members, id=455321214525767680)
 
-        with open("reports.json") as r:
+        with open("logs/reports.json") as r:
             reports = json.loads(r.read())
 
         if not str(who.id) in reports:
@@ -110,7 +110,7 @@ class Mod(commands.Cog):
         if reports.get(str(who.id)) >= 3:
             await appu.send(f"[{who}] has [{reports.get(str(who.id))}] reports! Be aware!")
 
-        with open("reports.json", "w") as w:
+        with open("logs/reports.json", "w") as w:
             w.write(json.dumps(reports, indent=4))
 
         await log.log(ctx, f"{ctx.author} reported {who.mention} for {reason}")
@@ -121,7 +121,7 @@ class Mod(commands.Cog):
     async def warn(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("Este comando necesita parámetros extra!")
-    
+
     @warn.command()
     @commands.has_permissions()
     async def user(self, ctx, user: discord.Member, *, reason: str= None):
@@ -129,11 +129,11 @@ class Mod(commands.Cog):
         await log.log(ctx, f"{ctx.author} warned {user.name}!")
         await ctx.send(f"{user.name} fue alertado por {ctx.author}")
         await ctx.message.delete(delay=2)
-    
+
     @warn.command()
     async def claim(self, ctx, *, reason: str):
         channel = discord.utils.get(ctx.guild.channels, name="disputas")
-        with open("warns.json", "r") as f:
+        with open("logs/warns.json", "r") as f:
             warns = json.load(f)
         if channel != None:
             await channel.send(f"{ctx.author.mention} ha disputado su último warn, de un total de [{warns[str(ctx.author.id)]}] con el motivo de [{reason}]")
@@ -156,7 +156,7 @@ class Mod(commands.Cog):
 
     #Warn function
     async def warning(self, ctx, user, reason):
-        with open("warns.json", "r") as f:
+        with open("logs/warns.json", "r") as f:
             warns = json.load(f)
 
         if not str(user.id) in warns:
@@ -164,7 +164,7 @@ class Mod(commands.Cog):
         warns[str(user.id)] += 1
 
         await user.send(f"Fuiste avisado por: {reason}\nTienes {warns[str(user.id)]} avisos. **Ten cuidado!**:warning:\n||Con 3 avisos: Muteo de 1h.\nCon 5 avisos: Muteo de 12h.\nCon 10 avisos: Expulsión.\nCon 15 avisos: Baneo permanente no revisable.\n*Los avisos se guardan aunque te vayas y vuelvas a entrar!*||")
-        with open("warns.json", "w") as f:
+        with open("logs/warns.json", "w") as f:
             json.dump(warns, f, indent=4)
 
         if warns[str(user.id)] == 3:
@@ -175,10 +175,10 @@ class Mod(commands.Cog):
                 await user.add_roles(muted_role)
                 await log.log(ctx, f"Temp muted {user.name} for warning accumulation")
                 await user.send(f"You got muted in **{ctx.guild.name}** for 1h for warning accumulation")
-            except:
-                print("Warn exception in 1h mute")
-            await asyncio.sleep(3600)
-            await user.remove_roles(muted_role)
+                await asyncio.sleep(3600)
+                await user.remove_roles(muted_role)
+            except Exception as e:
+                print(f"Warn exception in 1h mute\n{e}")
 
         elif warns[str(user.id)] == 5:
             muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")

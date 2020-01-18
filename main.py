@@ -100,7 +100,7 @@ async def oldhelp(ctx):
     await ctx.send(embed=embed)
     await log.log(ctx, f"Help from {ctx.author.name}")
 
-keep_aline()
+keep_alive()
 
 #Blinking current statuses
 activities = cycle(

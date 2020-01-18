@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands, tasks
 
 prefix = "*"
-version = "0.4"
+version = "0.5"
 tz = pytz.timezone("Europe/Madrid")
 
 client = commands.Bot(command_prefix=prefix)
@@ -17,7 +17,7 @@ client.remove_command('help')
 async def on_ready():
     print('Connected as:')
     print('{}: {}'.format(client.user.name, client.user.id))
-    print('Prefix: *')
+    print(f'Prefix: {prefix}')
     print(dt.now(tz).strftime("%H:%M:%S %d/%m/%Y"))
     print('--------------')
     change_status.start()
@@ -32,6 +32,7 @@ async def emload(ctx, extension):
     await ctx.send(f'Carga de emergencia de la extensión {extension}')
 
 @client.command()
+@commands.has_permissions(administrator=True)
 async def oldhelp(ctx):
     embed=discord.Embed(title='Help Command', description="H4ppu Bot", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)

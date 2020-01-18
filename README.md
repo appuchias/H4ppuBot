@@ -1,34 +1,18 @@
-[![Run on Repl.it](https://repl.it/badge/github/appuchias/H4ppuBot)](https://repl.it/github/appuchias/H4ppuBot)
 # H4ppu Bot
-## Este bot está única y exclusivamente diseñado para el servidor de H4ppu Community
+Bot implementado en el servidor de H4ppu Community para la administración y entretenimiento de los miembros del servidor de Discord
+
 >El código **no está optimizado ni para una lectura comprensiva ni para una adaptación sencilla** a otro contexto en Discord.
 
-El bot está dividido en:
-- Archivos Generales
-	* main.py
-	* .env
-	* modlog.txt
-	* reports.json
-	* warns.json
-	* LICENSE
-	* README.md
-	* requirements.txt
-		* Cogs
-			* chat.py
-			* custom.py
-			* errors.py
-			* events.py
-			* extensions.py
-			* mod.py
-	* _(Archivos de Git)_
+Puedes ver al bot funcionando en el servidor de [H4ppu Community](https://bit.ly/H4ppuC).
 
 Lee LICENSE.md para saber más sobre la licencia de uso del repositorio.
 Para ver una versión simplificada:
-![H4ppuBot_LICENSE](https://github.com/appuchias/H4ppuBot/blob/master/H4ppuBot_LICENSE.png)
 
-El bot está diseñado para ser hosteado en repl.it y por ello hay archivos innecesarios en el caso de autohostearlo, aunque también falta un archivo para hostearlo en repl.it (un .env con el token). En caso de querer replicarlo y encontrarse con problemas, contáctame e intentaré ayudarte
+![H4ppuBot_LICENSE](H4ppuBot_LICENSE.png)
 
-Cualquier cosa contáctame por: [mail](mailto:fernandez.fer.pabloff@gmail.com) (Con asunto GitHub: H4ppuBot)
+Considero el feedback muy importante, ya que me hace ver cosas que no había pensado. Para cualquier propuesta, solicitud o bug mándame un correo y te responderé lo antes posible.
 
+Contáctame por: [mail](mailto:fernandez.fer.pabloff@gmail.com) (Con asunto `GitHub: H4ppuBot`)
 
+*BOT made with :black_heart: thanks to [discord.py](https://github.com/Rapptz/discord.py)*\
 *README by [StackEdit](https://stackedit.io)*

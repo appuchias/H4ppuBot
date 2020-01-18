@@ -1,10 +1,6 @@
-.env
-
 __pycache__
 .pyc
 
 .vscode
-
-nuevo.py
 
 todo.txt

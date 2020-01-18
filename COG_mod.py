@@ -58,7 +58,7 @@ class Mod(commands.Cog):
 
     # #Unban someone
     # @commands.command()
-    # @commands.has_role("Mods")
+    # @commands.has_permissions(administrator=True)
     # async def unban(self, ctx, *, member):
     #     banned_users = await ctx.guild.bans()
     #     name, discr = member.split('#')

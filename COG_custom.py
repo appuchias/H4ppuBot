@@ -31,7 +31,7 @@ class Custom(commands.Cog):
             if channel.id == 641041859619323918 or channel.id == 641041860294606915: # Para evitar falsos positivos y que se añadan personas que no corresponden
                 if not userid in users: # Para evitar errores de inexistencia
                     users[userid] = 0
-                users[userid] += 1 # Para que conste que ha reaccionado
+                users[userid] += 1
                 await log.log(channel, f"{msg.author} reacted, {users.get(userid)}/2 done!") # Necesario en las primeras implementaciones
 
                 if users.get(userid) == 2: # Si ya ha reaccionado en los 2 canales
@@ -71,6 +71,15 @@ class Custom(commands.Cog):
                 pass
         await ctx.message.delete(delay=1)
         await log.log(ctx, f"Private channel {name} created by {ctx.author}")
+    
+    @commands.command()
+    @commands.is_owner()
+    async def notify(self, ctx, *, msg):
+        await ctx.message.delete(delay=2)
+        notif = discord.utils.get(ctx.guild.roles, name="Notif")
+        actualizaciones_bot = discord.utils.get(ctx.guild.channels, name="actualizaciones-bot")
+        await actualizaciones_bot.send(f"{notif.mention}\n{msg}")
+        await ctx.send("Message sent!")
 
     #Log
     async def log(self, ctx, msg):

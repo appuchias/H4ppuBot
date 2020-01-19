@@ -70,10 +70,10 @@ class Chat(commands.Cog):
         if repetitions > 0 and repetitions <= 20:
             embed = discord.Embed(title="Moneda", description=f"{repetitions} repeticiones", colour=0xf1c40f)
             for cnt in range(repetitions):
-                n = random.randint(0, 81)
-                if n < 40:
+                n = random.randint(0, 181)
+                if n <= 90:
                     embed.add_field(name=f"{cnt+1}/{repetitions}", value="CARA! :adult:")
-                elif n < 81:
+                elif n < 181:
                     embed.add_field(name=f"{cnt+1}/{repetitions}", value="CRUZ! :x:")
                 else:
                     embed.add_field(name=f"{cnt+1}/{repetitions}", value="CANTOOOOO!!! :tada::tada:")

@@ -1,9 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 
-import os
-import pytz
-from cogs import log
+import os, pytz, log
 from itertools import cycle
 from datetime import datetime as dt  # dt.now(tz).strftime("%H:%M:%S %d/%m/%Y")
 from keep_alive import keep_alive

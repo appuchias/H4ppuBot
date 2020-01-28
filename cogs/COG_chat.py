@@ -54,7 +54,7 @@ class Chat(commands.Cog):
         if veces <= 10:
             embed = discord.Embed(title=f"**{self.client.user.name}**", description='Repite "{}" {} veces'.format(output, veces), colour=0x7289DA)
             for i in range(veces):
-                embed.add_field(name=f'Repetición {i} de {veces}', value=output, inline=False)
+                embed.add_field(name=f'Repetición {i} de {veces}', value=output, inline=True)
             await ctx.send(embed=embed)
         else:
             await ctx.send('Me da bastante pereza tantas veces, es muy repetitivo. Me empiezo a cansar a partir de 10')

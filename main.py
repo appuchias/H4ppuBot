@@ -1,13 +1,12 @@
 import discord
 from discord.ext import commands, tasks
 
-import os, pytz, log
-from itertools import cycle
+import os, pytz, log, random
 from datetime import datetime as dt  # dt.now(tz).strftime("%H:%M:%S %d/%m/%Y")
 from keep_alive import keep_alive
 
 prefix = "*"
-version = "1.0"
+version = "1.1"
 tz = pytz.timezone("Europe/Madrid")
 
 client = commands.Bot(command_prefix=prefix)
@@ -101,8 +100,26 @@ async def oldhelp(ctx):
 keep_alive()
 
 #Blinking current statuses
-activities = cycle(
-    [f"*help | Bot Oficial | V{version}", f"*help | H4ppu Bot | By Appu"])
+activities = [f"*help | Bot Oficial | V{version}",
+    f"*help | H4ppu Bot | By Appu",
+    f"*help | Bot Oficial | V{version}",
+    f"*help | H4ppu Bot | By Appu",
+    f"*help | Bot Oficial | V{version}",
+    f"*help | H4ppu Bot | By Appu",
+    f"*help | Bot Oficial | V{version}",
+    f"*help | H4ppu Bot | By Appu",
+    "Verdad que mola?",
+    "Nunca lo creerías",
+    "Estaré donde no me esperas",
+    "Hago ¡CHAS! y aparezco a tu lado",
+    "Guarda una golosina para mí",
+    "F",
+    "No juzgues a un pez por su habilidad de trepar árboles...",
+    "/summon H4ppuBot",
+    "\#TeamCreepers",
+    "Fan de Eustaquio",
+    "Nadie me conoce xD",
+    "Pirateo cuentas :)"]
 
 
 @client.command(hidden=True)
@@ -124,7 +141,11 @@ print(f'{extensions} loaded!')
 #Status
 @tasks.loop(seconds=3)
 async def change_status():
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=random.choice(activities)))
 
 client.run(os.environ.get("Token_Bot"))
 #os.environ.get("Token_Bot")
+
+"""
+Traceback (most recent call last): File "C:\Users\ferna.atom\packages\linter-pylama\bin\pylama.py", line 12, in from pylama.main import shell File "C:\Users\ferna.atom\packages\linter-pylama\bin\pylama\main.py", line 10 from .async import check_async ^ SyntaxError: invalid syntax
+"""

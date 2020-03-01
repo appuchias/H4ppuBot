@@ -43,6 +43,7 @@ class Help(commands.Cog):
             page5.add_field(name="***insta <cuenta>**", value="Muestra la última foto de una cuenta pública, junto a sus likes y comentarios", inline=False)
             page5.add_field(name="***twitter <cuenta>**", value="Responde con los 10 últimos tweets de una cuenta", inline=False)
             page5.add_field(name="***reddit <subreddit>**", value="Manda un mensaje con los 10 últimos posts del subreddit", inline=False)
+            page6.add_field(name='***yt <@member>**', value="Encuentra los 10 primeros vídeos de una búsqueda", inline=False)
 
             page6.add_field(name='***clear <n>**', value='Elimina hasta 20 mensajes', inline=False)
             page6.add_field(name='***kick <@member> [motivo]**', value='Echa a alguien', inline=False)
@@ -56,7 +57,7 @@ class Help(commands.Cog):
             await paginator.run()
 
             await log.log(ctx, f"Help {ctx.author}")
-    
+
     @help.command()
     async def warn(self, ctx):
         timestamp = dt.fromtimestamp(dt.timestamp(dt.now(tz=tz)))

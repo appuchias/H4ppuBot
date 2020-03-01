@@ -31,7 +31,7 @@ class Errors(commands.Cog):
             await log.log(ctx, f"Error: {error}")
 
         elif isinstance(error, commands.BadArgument):
-            await ctx.send(f"Argumento no válido!:confused:\n*(Error: {error})*\n||**(Exception raised when a parsing or conversion failure is encountered on an argument to pass into a command.)**||")
+            await ctx.send(f"Parámetro inválido!:confused:\n*(Error: {error})*")
             await log.log(ctx, f"Error: {error}")
 
         elif isinstance(error, commands.NoPrivateMessage):

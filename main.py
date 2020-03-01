@@ -145,7 +145,3 @@ async def change_status():
 
 client.run(os.environ.get("Token_Bot"))
 #os.environ.get("Token_Bot")
-
-"""
-Traceback (most recent call last): File "C:\Users\ferna.atom\packages\linter-pylama\bin\pylama.py", line 12, in from pylama.main import shell File "C:\Users\ferna.atom\packages\linter-pylama\bin\pylama\main.py", line 10 from .async import check_async ^ SyntaxError: invalid syntax
-"""

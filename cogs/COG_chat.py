@@ -46,15 +46,14 @@ class Chat(commands.Cog):
 
     @commands.command()
     async def repite(self, ctx, veces:int, *args):
-        output = ' '
-        for word in args:
-            output += word
-            output += ' '
-
         if veces <= 10:
+            output = ''
+            for word in args:
+                output += word
+                output += ' '
             embed = discord.Embed(title=f"**{self.client.user.name}**", description='Repite "{}" {} veces'.format(output, veces), colour=0x7289DA)
             for i in range(veces):
-                embed.add_field(name=f'Repetición {i} de {veces}', value=output, inline=True)
+                embed.add_field(name=f'Repetición {i}/{veces}', value=output.strip(), inline=True)
             await ctx.send(embed=embed)
         else:
             await ctx.send('Me da bastante pereza tantas veces, es muy repetitivo. Me empiezo a cansar a partir de 10')
@@ -70,10 +69,10 @@ class Chat(commands.Cog):
         if repetitions > 0 and repetitions <= 20:
             embed = discord.Embed(title="Moneda", description=f"{repetitions} repeticiones", colour=0xf1c40f)
             for cnt in range(repetitions):
-                n = random.randint(0, 181)
-                if n <= 90:
+                n = random.randint(0, 180)
+                if n < 90:
                     embed.add_field(name=f"{cnt+1}/{repetitions}", value="CARA! :adult:")
-                elif n < 181:
+                elif n < 180:
                     embed.add_field(name=f"{cnt+1}/{repetitions}", value="CRUZ! :x:")
                 else:
                     embed.add_field(name=f"{cnt+1}/{repetitions}", value="CANTOOOOO!!! :tada::tada:")

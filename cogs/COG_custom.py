@@ -71,31 +71,18 @@ class Custom(commands.Cog):
                 pass
         await ctx.message.delete(delay=1)
         await log.log(ctx, f"Private channel {name} created by {ctx.author}")
-    
+
     @commands.command()
     @commands.is_owner()
     async def notify(self, ctx, *, msg):
+        version = msg.split(" | ")[0]
+        content = msg.split(" | ")[1]
         await ctx.message.delete(delay=2)
         notif = discord.utils.get(ctx.guild.roles, name="Notif")
         actualizaciones_bot = discord.utils.get(ctx.guild.channels, name="actualizaciones-bot")
-        await actualizaciones_bot.send(f"{notif.mention}\n{msg}")
+        await actualizaciones_bot.send(f"{notif.mention}\n{version}\n{content}")
         await ctx.send("Message sent!")
-
-    #Log
-    async def log(self, ctx, msg):
-        channel = discord.utils.get(ctx.guild.text_channels, name="log")
-        if channel in ctx.guild.text_channels:
-            pass
-        else:
-            await ctx.send("Error 404. Channel not found")
-            return
-
-        await channel.send(msg)
-        print(f"Log: {msg}")
-
-        with open("modlog.txt", "a") as f:
-            f.write(f"Log: {msg}\n")
-
+        await log.log(ctx, f"Notify: {msg}")
 
     @tasks.loop(seconds=10)
     async def members_update(self):
